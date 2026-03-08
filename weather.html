@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Updates - AgroSmart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">🌾 Agro<span>Smart</span></a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="advisory.html">Crop Advisory</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="weather.html">Weather</a></li>
+                    <li class="nav-item"><a class="nav-link" href="schemes.html">Schemes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="market.html">Market</a></li>
+                    <li class="nav-item"><a class="nav-link" href="calculator.html">Calculator</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <h1>Weather Updates</h1>
+            <p>Real-time data for your region</p>
+        </div>
+    </header>
+
+    <section class="section-padding">
+        <div class="container">
+            <div id="weather-loader" class="text-center py-5">
+                <i class="fas fa-spinner fa-spin fa-3x text-success"></i>
+                <p class="mt-3">Fetching real-time weather data...</p>
+            </div>
+
+            <div id="weather-content" class="d-none">
+                <div class="weather-panel reveal mb-5">
+                    <div class="row align-items-center">
+                        <div class="col-md-6 mb-4 mb-md-0 border-md-end">
+                            <div class="d-flex align-items-center gap-4">
+                                <div id="weather-icon-container">
+                                    <i id="main-weather-icon" class="fas fa-sun display-1 text-warning"></i>
+                                </div>
+                                <div>
+                                    <h1 class="display-3 fw-bold mb-0" id="current-temp">--°C</h1>
+                                    <p class="h5 text-muted" id="location-name">Detecting Location...</p>
+                                    <span id="weather-alert" class="badge bg-success p-2 d-none">
+                                        <i class="fas fa-info-circle me-1"></i> <span id="alert-text">Normal</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 ps-md-5">
+                            <div class="row g-4 text-center">
+                                <div class="col-6 col-sm-3">
+                                    <p class="text-muted small mb-1">Humidity</p>
+                                    <h4 class="fw-bold" id="humidity">--%</h4>
+                                </div>
+                                <div class="col-6 col-sm-3">
+                                    <p class="text-muted small mb-1">Precipitation</p>
+                                    <h4 class="fw-bold" id="precip">--mm</h4>
+                                </div>
+                                <div class="col-6 col-sm-3">
+                                    <p class="text-muted small mb-1">Wind Speed</p>
+                                    <h4 class="fw-bold" id="wind">--km/h</h4>
+                                </div>
+                                <div class="col-6 col-sm-3">
+                                    <p class="text-muted small mb-1">Cloud Cover</p>
+                                    <h4 class="fw-bold" id="clouds">--%</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-6 reveal">
+                        <div class="agro-card p-4">
+                            <h4 class="fw-bold mb-4">Agricultural Advisory</h4>
+                            <ul class="list-unstyled" id="agri-advisory">
+                                <li class="mb-3 d-flex"><i class="fas fa-leaf text-success me-3 mt-1"></i>
+                                    <span>Analyzing conditions for your crops...</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6 reveal">
+                        <div class="agro-card p-4">
+                            <h4 class="fw-bold mb-4">7-Day Forecast</h4>
+                            <div class="table-responsive">
+                                <table class="table table-borderless align-middle mb-0">
+                                    <tbody id="forecast-body">
+                                        <!-- Forecast rows will be injected here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+
+                </div>
+            </div>
+    </footer>
+
+    <script>
+        const API_KEY = '0d38f21fee960b0d9640a1051ca51854';
+
+        async function fetchWeather() {
+            const loader = document.getElementById('weather-loader');
+            const content = document.getElementById('weather-content');
+
+            try {
+                const pos = await new Promise((resolve, reject) => {
+                    navigator.geolocation.getCurrentPosition(resolve, reject);
+                });
+
+                const { latitude, longitude } = pos.coords;
+
+                const currRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`);
+                const currData = await currRes.json();
+
+                const foreRes = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`);
+                const foreData = await foreRes.json();
+
+                updateUI(currData, foreData);
+                loader.classList.add('d-none');
+                content.classList.remove('d-none');
+                reveal();
+
+            } catch (error) {
+                console.error('Weather error:', error);
+                const defLat = 11.34, defLon = 77.72;
+                const currRes = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${defLat}&lon=${defLon}&appid=${API_KEY}&units=metric`);
+                const currData = await currRes.json();
+                const foreRes = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${defLat}&lon=${defLon}&appid=${API_KEY}&units=metric`);
+                const foreData = await foreRes.json();
+
+                updateUI(currData, foreData);
+                loader.classList.add('d-none');
+                content.classList.remove('d-none');
+                reveal();
+            }
+        }
+
+        function updateUI(current, forecast) {
+            document.getElementById('current-temp').textContent = `${Math.round(current.main.temp)}°C`;
+            document.getElementById('location-name').textContent = `${current.name}, ${current.sys.country}`;
+            document.getElementById('humidity').textContent = `${current.main.humidity}%`;
+            document.getElementById('precip').textContent = current.rain ? `${current.rain['1h'] || 0}mm` : '0mm';
+            document.getElementById('wind').textContent = `${Math.round(current.wind.speed * 3.6)}km/h`;
+            document.getElementById('clouds').textContent = `${current.clouds.all}%`;
+
+            const iconCode = current.weather[0].icon;
+            document.getElementById('main-weather-icon').className = `fas ${getOWMIcon(iconCode)} display-1 text-warning`;
+
+            let advisoryHtml = '';
+            if (current.rain || current.main.humidity > 85) {
+                advisoryHtml += `<li class="mb-3 d-flex text-danger"><i class="fas fa-exclamation-triangle me-3 mt-1"></i> <span>Moisture levels are high. Recommended to pause harvesting and avoid pesticide application.</span></li>`;
+            } else if (current.main.temp > 35) {
+                advisoryHtml += `<li class="mb-3 d-flex text-warning"><i class="fas fa-sun me-3 mt-1"></i> <span>Intense heat detected. Ensure adequate irrigation for moisture-sensitive crops.</span></li>`;
+            } else {
+                advisoryHtml += `<li class="mb-3 d-flex text-success"><i class="fas fa-check-circle me-3 mt-1"></i> <span>Weather is optimal for field maintenance and fertilizer application.</span></li>`;
+            }
+
+            if (current.main.humidity > 70) {
+                advisoryHtml += `<li class="mb-3 d-flex text-info"><i class="fas fa-bug me-3 mt-1"></i> <span>High humidity may attract fungal pathogens. Inspect leaf undersides regularly.</span></li>`;
+            }
+            document.getElementById('agri-advisory').innerHTML = advisoryHtml;
+
+            let forecastHtml = '';
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const noonForecasts = forecast.list.filter(item => item.dt_txt.includes('12:00:00'));
+
+            noonForecasts.forEach(item => {
+                const date = new Date(item.dt * 1000);
+                const dayName = days[date.getDay()];
+                const icon = getOWMIcon(item.weather[0].icon);
+                forecastHtml += `
+                    <tr>
+                        <td>${dayName}</td>
+                        <td><i class="fas ${icon} text-warning"></i></td>
+                        <td>${Math.round(item.main.temp_max)}° / ${Math.round(item.main.temp_min)}°</td>
+                        <td class="small opacity-75">${item.weather[0].main}</td>
+                    </tr>
+                `;
+            });
+            document.getElementById('forecast-body').innerHTML = forecastHtml;
+        }
+
+        function getOWMIcon(code) {
+            const map = {
+                '01d': 'fa-sun', '01n': 'fa-moon',
+                '02d': 'fa-cloud-sun', '02n': 'fa-cloud-moon',
+                '03d': 'fa-cloud', '03n': 'fa-cloud',
+                '04d': 'fa-cloud', '04n': 'fa-cloud',
+                '09d': 'fa-cloud-showers-heavy', '09n': 'fa-cloud-showers-heavy',
+                '10d': 'fa-cloud-sun-rain', '10n': 'fa-cloud-moon-rain',
+                '11d': 'fa-bolt', '11n': 'fa-bolt',
+                '13d': 'fa-snowflake', '13n': 'fa-snowflake',
+                '50d': 'fa-smog', '50n': 'fa-smog'
+            };
+            return map[code] || 'fa-cloud';
+        }
+
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 150) reveals[i].classList.add("active");
+            }
+        }
+
+        window.onload = () => {
+            fetchWeather();
+            reveal();
+        };
+        window.addEventListener("scroll", reveal);
+    </script>
+</body>
+
+</html>

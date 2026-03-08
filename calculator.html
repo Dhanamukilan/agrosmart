@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profit Calculator - AgroSmart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">🌾 Agro<span>Smart</span></a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="advisory.html">Crop Advisory</a></li>
+                    <li class="nav-item"><a class="nav-link" href="weather.html">Weather</a></li>
+                    <li class="nav-item"><a class="nav-link" href="schemes.html">Schemes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="market.html">Market</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="calculator.html">Calculator</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <h1>Profit Calculator</h1>
+            <p>Plan your yield with data-driven insights</p>
+        </div>
+    </header>
+
+    <section class="section-padding">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-12 reveal">
+                    <div class="agro-card p-5 shadow-lg">
+                        <form id="profitForm">
+                            <div class="row g-4">
+                                <div class="col-md-3">
+                                    <label class="form-label fw-bold"><i
+                                            class="fas fa-map-marked-alt text-success me-2"></i>Land Size
+                                        (Acres)</label>
+                                    <input type="number" class="form-control" id="landSize" placeholder="e.g. 5"
+                                        required>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label fw-bold"><i
+                                            class="fas fa-seedling text-success me-2"></i>Seed Cost (per Acre)</label>
+                                    <input type="number" class="form-control" id="seedCost" placeholder="₹" required>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label fw-bold"><i
+                                            class="fas fa-flask text-success me-2"></i>Fertilizer Cost (Acre)</label>
+                                    <input type="number" class="form-control" id="fertCost" placeholder="₹" required>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label fw-bold"><i
+                                            class="fas fa-users text-success me-2"></i>Labor Cost (per Acre)</label>
+                                    <input type="number" class="form-control" id="laborCost" placeholder="₹" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold"><i
+                                            class="fas fa-wheat-awn text-success me-2"></i>Expected Yield
+                                        (Quintals/Acre)</label>
+                                    <input type="number" class="form-control" id="yield" placeholder="20" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold"><i class="fas fa-tag text-success me-2"></i>Market
+                                        Price (per Quintal)</label>
+                                    <input type="number" class="form-control" id="price" placeholder="₹" required>
+                                </div>
+                                <div class="col-md-4 d-flex align-items-end">
+                                    <button type="submit" class="btn btn-agro-primary w-100 py-3">Calculate
+                                        Profit</button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div id="resultArea" class="mt-5 d-none animate__animated animate__fadeIn">
+                            <h4 class="fw-bold mb-4">Financial projection Report</h4>
+                            <div class="bg-light p-4 rounded-4 mb-4">
+                                <div class="row text-center">
+                                    <div class="col-md-4 py-3">
+                                        <div class="text-muted small mb-2"><i class="fas fa-wallet me-1"></i>Total
+                                            Investment</div>
+                                        <h3 class="text-danger fw-bold mb-0" id="resCost">₹0</h3>
+                                    </div>
+                                    <div class="col-md-4 py-3 border-md-start border-md-end">
+                                        <div class="text-muted small mb-2"><i class="fas fa-coins me-1"></i>Gross
+                                            Revenue</div>
+                                        <h3 class="text-primary fw-bold mb-0" id="resRev">₹0</h3>
+                                    </div>
+                                    <div class="col-md-4 py-3">
+                                        <div class="text-muted small mb-2"><i class="fas fa-chart-line me-1"></i>Net
+                                            Profit</div>
+                                        <h3 class="text-success fw-bold mb-0" id="resProfit">₹0</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="alert alert-success border-0 rounded-4 p-4 d-flex align-items-center">
+                                <i class="fas fa-info-circle fa-2x me-3"></i>
+                                <div>
+                                    <h6 class="fw-bold mb-1">Profitability Analysis</h6>
+                                    <p class="small mb-0 opacity-75" id="profitAdvice">Based on current market trends,
+                                        this crop is likely to yield a strong return. ensure timely irrigation for best
+                                        results.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+
+    </footer>
+
+    <script>
+        document.getElementById('profitForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const land = parseFloat(document.getElementById('landSize').value);
+            const seed = parseFloat(document.getElementById('seedCost').value);
+            const fert = parseFloat(document.getElementById('fertCost').value);
+            const labor = parseFloat(document.getElementById('laborCost').value);
+            const yieldVal = parseFloat(document.getElementById('yield').value);
+            const priceVal = parseFloat(document.getElementById('price').value);
+
+            const cost = (seed + fert + labor) * land;
+            const rev = yieldVal * land * priceVal;
+            const profit = rev - cost;
+
+            document.getElementById('resCost').innerText = '₹' + cost.toLocaleString();
+            document.getElementById('resRev').innerText = '₹' + rev.toLocaleString();
+            document.getElementById('resProfit').innerText = '₹' + profit.toLocaleString();
+
+            const adviceBox = document.querySelector('.alert');
+            const adviceText = document.getElementById('profitAdvice');
+            if (profit > cost * 0.5) {
+                adviceBox.className = 'alert alert-success border-0 rounded-4 p-4 d-flex align-items-center';
+                adviceText.innerText = 'High profitability projected! This is an excellent choice for your current land size.';
+            } else if (profit > 0) {
+                adviceBox.className = 'alert alert-info border-0 rounded-4 p-4 d-flex align-items-center';
+                adviceText.innerText = 'Moderate profit expected. Consider optimizing labor costs to improve your margins.';
+            } else {
+                adviceBox.className = 'alert alert-danger border-0 rounded-4 p-4 d-flex align-items-center';
+                adviceText.innerText = 'Projected losses detected. Re-evaluate your input costs or choose a crop with better market value.';
+            }
+
+            document.getElementById('resultArea').classList.remove('d-none');
+            window.scrollTo({ top: document.getElementById('resultArea').offsetTop - 100, behavior: 'smooth' });
+        });
+
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 150) reveals[i].classList.add("active");
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        window.onload = reveal;
+    </script>
+</body>
+
+</html>

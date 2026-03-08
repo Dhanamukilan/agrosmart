@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - AgroSmart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">🌾 Agro<span>Smart</span></a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="advisory.html">Crop Advisory</a></li>
+                    <li class="nav-item"><a class="nav-link" href="weather.html">Weather</a></li>
+                    <li class="nav-item"><a class="nav-link" href="schemes.html">Schemes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="market.html">Market</a></li>
+                    <li class="nav-item"><a class="nav-link" href="calculator.html">Calculator</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <h1>Our Mission</h1>
+            <p>Empowering the hands that feed the nation</p>
+        </div>
+    </header>
+
+    <section class="section-padding">
+        <div class="container">
+            <div class="row g-5 align-items-center mb-5">
+                <div class="col-lg-6 reveal">
+                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=800"
+                        class="img-fluid rounded-4 shadow-lg" alt="About">
+                </div>
+                <div class="col-lg-6 reveal">
+                    <h2 class="fw-bold color-primary-dark">Digital Revolution in Agriculture</h2>
+                    <p class="lead">AgroSmart was born from a simple realization: Indian farmers have the hard work and
+                        the soil, but they lack the real-time data to compete in a global market.</p>
+                    <p>We provide a unified ecosystem that integrates fragmented services like weather tracking, market
+                        pricing, and government schemes into a single, farmer-friendly interface. Our goal is to reduce
+                        crop loss and increase farmer income through science-backed digital advisory.</p>
+                </div>
+            </div>
+
+            <div class="row g-4 text-center mt-5">
+                <div class="col-md-4 reveal">
+                    <div class="agro-card p-4">
+                        <i class="fas fa-hand-holding-heart fa-3x text-success mb-3"></i>
+                        <h4 class="fw-bold">Integrity</h4>
+                        <p class="small text-muted">Transparent data directly sourced from government and verified mandi
+                            sources.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 reveal">
+                    <div class="agro-card p-4">
+                        <i class="fas fa-lightbulb fa-3x text-warning mb-3"></i>
+                        <h4 class="fw-bold">Innovation</h4>
+                        <p class="small text-muted">Using data analytics to provide personalized recommendations for
+                            every acre.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 reveal">
+                    <div class="agro-card p-4">
+                        <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                        <h4 class="fw-bold">Impact</h4>
+                        <p class="small text-muted">Focused on the bottom line of the individual farmer to ensure rural
+                            prosperity.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+
+    </footer>
+
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 150) reveals[i].classList.add("active");
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        window.onload = reveal;
+    </script>
+</body>
+
+</html>

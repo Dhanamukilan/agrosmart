@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Advisory - AgroSmart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">🌾 Agro<span>Smart</span></a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="advisory.html">Crop Advisory</a></li>
+                    <li class="nav-item"><a class="nav-link" href="weather.html">Weather</a></li>
+                    <li class="nav-item"><a class="nav-link" href="schemes.html">Schemes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="market.html">Market</a></li>
+                    <li class="nav-item"><a class="nav-link" href="calculator.html">Calculator</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <h1>Crop Advisory</h1>
+            <p>Smart guidance for maximum yield</p>
+        </div>
+    </header>
+
+    <section class="section-padding">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-md-6 reveal">
+                    <div class="agro-card p-2 rounded-pill shadow-sm d-flex align-items-center bg-white">
+                        <i class="fas fa-search ms-3 text-muted"></i>
+                        <input type="text" id="cropSearch" class="form-control border-0 shadow-none ps-3 bg-transparent"
+                            placeholder="Search for crops (e.g. Rice, Mango...)" style="font-size: 1.1rem;">
+                    </div>
+                </div>
+            </div>
+            <div class="row g-4" id="cropContainer">
+                <!-- Rice -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Requires standing water during the transplanting phase. Maintain water levels of 2-5cm. Control weed growth in the first 40 days.">
+                        <img src="rice.jpg" class="card-img-top" alt="Rice"
+                            onerror="this.src='https://placehold.co/500x300?text=Rice'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Rice</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Clayey / Loamy</li>
+                                <li><strong>Season:</strong> Kharif (June-July)</li>
+                                <li><strong>Fertilizer:</strong> NPK (120:60:40)</li>
+                                <li><strong>Yield:</strong> 3.5 - 5 Tons/Acre</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Wheat -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Critical irrigation stages are CRI (21 days after sowing) and heading. Use quality treated seeds to prevent rust disease.">
+                        <img src="wheat.jpg" class="card-img-top" alt="Wheat"
+                            onerror="this.src='https://placehold.co/500x300?text=Wheat'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Wheat</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Well-drained Loamy</li>
+                                <li><strong>Season:</strong> Rabi (Oct-Nov)</li>
+                                <li><strong>Fertilizer:</strong> NPK (100:50:25)</li>
+                                <li><strong>Yield:</strong> 2.5 - 4 Tons/Acre</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Repeat for Cotton and Sugarcane -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Avoid fertilization after flowering begins. Monitor for pink bollworm. Picking should be done in dry weather for quality.">
+                        <img src="cotton.jpg" class="card-img-top" alt="Cotton"
+                            onerror="this.src='https://images.unsplash.com/photo-1594903328217-99743725752c?auto=format&fit=crop&q=80&w=500'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Cotton</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Black / Deep Alluvial</li>
+                                <li><strong>Season:</strong> Kharif (May-June)</li>
+                                <li><strong>Fertilizer:</strong> NPK (80:40:40)</li>
+                                <li><strong>Yield:</strong> 8 - 12 Quintals</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Requires heavy irrigation until the ripening stage. Earthing up is necessary to prevent lodging. Control shoot borer early.">
+                        <img src="sugarcane.jpg" class="card-img-top" alt="Sugarcane"
+                            onerror="this.src='https://images.unsplash.com/photo-1594731825700-096d83395741?auto=format&fit=crop&q=80&w=500'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Sugarcane</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Deep Rich Loamy</li>
+                                <li><strong>Season:</strong> Annual (Jan-Feb)</li>
+                                <li><strong>Fertilizer:</strong> NPK (150:75:75)</li>
+                                <li><strong>Yield:</strong> 35 - 50 Tons</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Maize -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Ensure proper drainage to prevent waterlogging. Apply nitrogen in split doses. Monitor for fall armyworm, especially in early stages.">
+                        <img src="babycorn.jpg" class="card-img-top" alt="Maize"
+                            onerror="this.src='https://images.unsplash.com/photo-1551729064-07e997f023cb?auto=format&fit=crop&q=80&w=500'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Maize</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Sandy Loam</li>
+                                <li><strong>Season:</strong> Kharif (June-July)</li>
+                                <li><strong>Fertilizer:</strong> NPK (120:60:40)</li>
+                                <li><strong>Yield:</strong> 2.5 - 4 Tons</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tomato -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Staking is essential for better fruit quality. Avoid overhead watering to prevent blight. Boost calcium to prevent rot.">
+                        <img src="tomato.jpg" class="card-img-top" alt="Tomato"
+                            onerror="this.src='https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&q=80&w=500'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Tomato</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Well-drained Loam</li>
+                                <li><strong>Season:</strong> Year-round</li>
+                                <li><strong>Fertilizer:</strong> NPK (100:80:60)</li>
+                                <li><strong>Yield:</strong> 10 - 15 Tons</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Banana -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Heavy feeder of potassium. Provide windbreaks to prevent leaf tearing. Remove suckers regularly for better yield.">
+                        <img src="banana.jpg" class="card-img-top" alt="Banana"
+                            onerror="this.src='https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&q=80&w=500'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Banana</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Deep Alluvial</li>
+                                <li><strong>Season:</strong> Jun - July</li>
+                                <li><strong>Fertilizer:</strong> NPK (110:35:330)</li>
+                                <li><strong>Yield:</strong> 20 - 30 Tons</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Groundnut -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Apply gypsum during pegging stage. Well-drained soil is critical to prevent pod rot. Harvest when inner pod turns dark.">
+                        <img src="groundnut.jpg" class="card-img-top" alt="Groundnut"
+                            onerror="this.src='https://images.unsplash.com/photo-1558522195-e1201b090344?auto=format&fit=crop&q=80&w=500'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Groundnut</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Sandy / Red Loamy</li>
+                                <li><strong>Season:</strong> Kharif (June-July)</li>
+                                <li><strong>Fertilizer:</strong> NPK (20:40:40)</li>
+                                <li><strong>Yield:</strong> 1.5 - 2 Tons</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Black Pepper -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Provide support for vines to climb. Ensure good drainage to prevent foot rot. Harvest when berries turn reddish-orange.">
+                        <img src="blackpepper.jpg" class="card-img-top" alt="Black Pepper"
+                            onerror="this.src='https://placehold.co/500x300?text=Black+Pepper'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Black Pepper</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Well-drained Red/Laterite</li>
+                                <li><strong>Season:</strong> May - June</li>
+                                <li><strong>Fertilizer:</strong> NPK (50:50:150)</li>
+                                <li><strong>Yield:</strong> 2000 kg/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Cardamom -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Requires shade and high humidity. Mulching is crucial for moisture retention. Hand pollination can increase yield.">
+                        <img src="Cardamom.jpg.png" class="card-img-top" alt="Cardamom"
+                            onerror="this.src='https://placehold.co/500x300?text=Cardamom'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Cardamom</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Forest Loam (Acidic)</li>
+                                <li><strong>Season:</strong> Aug - Sept</li>
+                                <li><strong>Fertilizer:</strong> NPK (75:75:150)</li>
+                                <li><strong>Yield:</strong> 250 - 500 kg/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Turmeric -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Plant rhizomes in well-prepared beds. Requires consistent moisture during growth. Harvest when leaves turn yellow and dry.">
+                        <img src="turmeric.jpg" class="card-img-top" alt="Turmeric"
+                            onerror="this.src='https://placehold.co/500x300?text=Turmeric'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Turmeric</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Well-drained Sandy/Clay Loam</li>
+                                <li><strong>Season:</strong> May - June</li>
+                                <li><strong>Fertilizer:</strong> NPK (60:60:120)</li>
+                                <li><strong>Yield:</strong> 20-25 Tons/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Ginger -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Thrives in partial shade. Heavy mulching is mandatory to conserve moisture and suppress weeds. Watch for rhizome rot.">
+                        <img src="ginger.jpg" class="card-img-top" alt="Ginger"
+                            onerror="this.src='https://images.unsplash.com/photo-1615485500704-8e990fbb9042?auto=format&fit=crop&q=80&w=500'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Ginger</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Well-drained Sandy/Clay Loam</li>
+                                <li><strong>Season:</strong> May - June</li>
+                                <li><strong>Fertilizer:</strong> NPK (75:50:50)</li>
+                                <li><strong>Yield:</strong> 15-20 Tons/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Clove -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Requires deep, fertile soil and high humidity. Protect young plants from direct sun. Harvest flower buds before they open.">
+                        <img src="clove.jpg" class="card-img-top" alt="Clove"
+                            onerror="this.src='https://placehold.co/500x300?text=Clove'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Clove</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Deep Rich Loam</li>
+                                <li><strong>Season:</strong> Sept - Oct</li>
+                                <li><strong>Fertilizer:</strong> 300:300:900 (g/tree)</li>
+                                <li><strong>Yield:</strong> 4 - 8 kg/tree</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Coriander -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Sow directly as transplanting is difficult. Requires cool weather for good seed production. Harvest leaves before flowering for best flavor.">
+                        <img src="coriander.jpg" class="card-img-top" alt="Coriander"
+                            onerror="this.src='https://placehold.co/500x300?text=Coriander'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Coriander</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Loamy</li>
+                                <li><strong>Season:</strong> Oct - Nov</li>
+                                <li><strong>Fertilizer:</strong> NPK (20:30:20)</li>
+                                <li><strong>Yield:</strong> 500-1000 kg/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Cumin -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Requires cool, dry weather. Avoid over-watering to prevent fungal diseases. Harvest when seeds turn yellowish-brown.">
+                        <img src="cumin.jpg" class="card-img-top" alt="Cumin"
+                            onerror="this.src='https://placehold.co/500x300?text=Cumin'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Cumin</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Well-drained Sandy Loam</li>
+                                <li><strong>Season:</strong> Oct - Nov</li>
+                                <li><strong>Fertilizer:</strong> NPK (30:15:0)</li>
+                                <li><strong>Yield:</strong> 500-600 kg/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tea -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Requires acidic soil and high rainfall. Regular pruning is essential for continuous flush. Pluck young leaves and buds for quality.">
+                        <img src="tea.jpg" class="card-img-top" alt="Tea"
+                            onerror="this.src='https://placehold.co/500x300?text=Tea'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Tea</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Deep Acidic Soil</li>
+                                <li><strong>Season:</strong> Year-round</li>
+                                <li><strong>Fertilizer:</strong> NPK (120:60:60)</li>
+                                <li><strong>Yield:</strong> 1500-2500 kg/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Coffee -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Requires partial shade and well-distributed rainfall. Pruning helps maintain plant shape and yield. Harvest ripe red cherries.">
+                        <img src="coffee.jpg" class="card-img-top" alt="Coffee"
+                            onerror="this.src='https://placehold.co/500x300?text=Coffee'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Coffee</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Deep Rich Forest Soil</li>
+                                <li><strong>Season:</strong> Year-round</li>
+                                <li><strong>Fertilizer:</strong> NPK (160:120:160)</li>
+                                <li><strong>Yield:</strong> 1000-2000 kg/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Rubber -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Requires high humidity and well-drained soil. Tapping should be done carefully to avoid damaging the tree. Protect from strong winds.">
+                        <img src="rubber.jpg" class="card-img-top" alt="Rubber"
+                            onerror="this.src='https://placehold.co/500x300?text=Rubber'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Rubber</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Deep Well-drained</li>
+                                <li><strong>Season:</strong> Year-round</li>
+                                <li><strong>Fertilizer:</strong> NPK (30:30:30)</li>
+                                <li><strong>Yield:</strong> 1000-2000 kg/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Coconut -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Requires sandy or loamy soil and coastal climate. Regular irrigation during dry periods is crucial. Apply micronutrients for better yield.">
+                        <img src="cocunut.jpg" class="card-img-top" alt="Coconut"
+                            onerror="this.src='https://placehold.co/500x300?text=Coconut'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Coconut</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Sandy / Loamy</li>
+                                <li><strong>Season:</strong> Year-round</li>
+                                <li><strong>Fertilizer:</strong> 500:320:1200 (g/palm)</li>
+                                <li><strong>Yield:</strong> 60 - 100 nuts/palm</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Potato -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Plant certified seed potatoes. Earthing up is vital to protect tubers from greening. Manage late blight with fungicides.">
+                        <img src="potato.jpg" class="card-img-top" alt="Potato"
+                            onerror="this.src='https://placehold.co/500x300?text=Potato'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Potato</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Well-drained Sandy/Clay Loam</li>
+                                <li><strong>Season:</strong> Oct - Nov</li>
+                                <li><strong>Fertilizer:</strong> NPK (120:100:100)</li>
+                                <li><strong>Yield:</strong> 20-30 Tons/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Onion -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Requires well-drained soil and full sun. Avoid excessive nitrogen late in the season. Harvest when tops fall over naturally.">
+                        <img src="onion.jpg" class="card-img-top" alt="Onion"
+                            onerror="this.src='https://placehold.co/500x300?text=Onion'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Onion</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Loamy</li>
+                                <li><strong>Season:</strong> Oct - Nov</li>
+                                <li><strong>Fertilizer:</strong> NPK (100:50:50)</li>
+                                <li><strong>Yield:</strong> 25-30 Tons/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Brinjal -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Requires warm weather and consistent moisture. Support plants to prevent breakage. Monitor for fruit and shoot borer.">
+                        <img src="brinjal.jpg" class="card-img-top" alt="Brinjal"
+                            onerror="this.src='https://placehold.co/500x300?text=Brinjal'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Brinjal</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Well-drained Loamy</li>
+                                <li><strong>Season:</strong> Year-round</li>
+                                <li><strong>Fertilizer:</strong> NPK (100:50:50)</li>
+                                <li><strong>Yield:</strong> 25-35 Tons/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Cabbage -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Requires cool weather and consistent moisture. Protect from cabbage worms and aphids. Harvest when heads are firm.">
+                        <img src="cabbage.jpg" class="card-img-top" alt="Cabbage"
+                            onerror="this.src='https://placehold.co/500x300?text=Cabbage'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Cabbage</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Well-drained Sandy Loam</li>
+                                <li><strong>Season:</strong> Sept - Oct</li>
+                                <li><strong>Fertilizer:</strong> NPK (120:60:60)</li>
+                                <li><strong>Yield:</strong> 30-40 Tons/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Cauliflower -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Requires cool temperatures and rich, moist soil. Blanching the curds by tying leaves helps maintain white color.">
+                        <img src="Cauliflower.jpg" class="card-img-top" alt="Cauliflower"
+                            onerror="this.src='https://placehold.co/500x300?text=Cauliflower'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Cauliflower</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Well-drained Clay Loam</li>
+                                <li><strong>Season:</strong> Sept - Oct</li>
+                                <li><strong>Fertilizer:</strong> NPK (120:60:60)</li>
+                                <li><strong>Yield:</strong> 20-30 Tons/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Carrot -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Sow in loose, stone-free soil for straight roots. Keep soil consistently moist. Harvest when roots reach desired size.">
+                        <img src="carrot.jpg" class="card-img-top" alt="Carrot"
+                            onerror="this.src='https://placehold.co/500x300?text=Carrot'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Carrot</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Well-drained Sandy Loam</li>
+                                <li><strong>Season:</strong> Sept - Oct</li>
+                                <li><strong>Fertilizer:</strong> NPK (60:60:100)</li>
+                                <li><strong>Yield:</strong> 25-30 Tons/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Mango -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Requires deep, well-drained soil. Pruning is essential for canopy management. Protect young fruits from fruit flies.">
+                        <img src="mango.jpg" class="card-img-top" alt="Mango"
+                            onerror="this.src='https://placehold.co/500x300?text=Mango'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Mango</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Deep Well-drained Alluvial</li>
+                                <li><strong>Season:</strong> July - Aug</li>
+                                <li><strong>Fertilizer:</strong> 1000:500:1000 (g/tree)</li>
+                                <li><strong>Yield:</strong> 400-600 fruits/tree</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Apple -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Requires specific chilling hours for bud break. Pruning during dormancy is vital for fruit quality. Thin fruits to ensure good size.">
+                        <img src="apple.jpg" class="card-img-top" alt="Apple"
+                            onerror="this.src='https://placehold.co/500x300?text=Apple'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Apple</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Loamy</li>
+                                <li><strong>Season:</strong> Dec - Jan</li>
+                                <li><strong>Fertilizer:</strong> 350:175:350 (g/tree)</li>
+                                <li><strong>Yield:</strong> 10-20 Tons/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Orange -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Requires sunny location and well-drained soil. Avoid waterlogging around the root zone. Mulching helps retain moisture.">
+                        <img src="orange.jpg" class="card-img-top" alt="Orange"
+                            onerror="this.src='https://placehold.co/500x300?text=Orange'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Orange</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Well-drained Alluvial/Red</li>
+                                <li><strong>Season:</strong> July - Aug</li>
+                                <li><strong>Fertilizer:</strong> 600:200:400 (g/tree)</li>
+                                <li><strong>Yield:</strong> 30-40 Tons/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Grapes -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Pruning is the most important task for fruit production. Provide sturdy trellising. Watch for powdery mildew.">
+                        <img src="grape.jpg" class="card-img-top" alt="Grapes"
+                            onerror="this.src='https://placehold.co/500x300?text=Grapes'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Grapes</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Well-drained Sandy Loam</li>
+                                <li><strong>Season:</strong> Jan - Feb</li>
+                                <li><strong>Fertilizer:</strong> 500:500:1000 (g/vine)</li>
+                                <li><strong>Yield:</strong> 20-25 Tons/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Guava -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Hardy crop that thrives in tropical climates. Training and pruning help maintain manageable height. Monitor for fruit flies.">
+                        <img src="guava.jpg" class="card-img-top" alt="Guava"
+                            onerror="this.src='https://placehold.co/500x300?text=Guava'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Guava</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Well-drained Loamy</li>
+                                <li><strong>Season:</strong> July - Aug</li>
+                                <li><strong>Fertilizer:</strong> 600:300:600 (g/tree)</li>
+                                <li><strong>Yield:</strong> 15-25 Tons/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Pomegranate -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Drought-tolerant but yields better with regular irrigation. Bahar treatment is necessary for flower induction. Harvest when fruit turns yellowish-red.">
+                        <img src="Pomegranate.jpg" class="card-img-top" alt="Pomegranate"
+                            onerror="this.src='https://placehold.co/500x300?text=Pomegranate'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Pomegranate</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Well-drained Sandy Loam</li>
+                                <li><strong>Season:</strong> July - Aug</li>
+                                <li><strong>Fertilizer:</strong> 625:250:250 (g/tree)</li>
+                                <li><strong>Yield:</strong> 18-20 Tons/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Mustard -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Cold climate oilseed. Sowing in October gives best yield. Monitor for mustard aphid and white rust. Harvest when pods turn golden.">
+                        <img src="mustard.jpg" class="card-img-top" alt="Mustard"
+                            onerror="this.src='https://placehold.co/500x300?text=Mustard'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Mustard</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Well-drained Sandy Loam</li>
+                                <li><strong>Season:</strong> Oct - Nov</li>
+                                <li><strong>Fertilizer:</strong> NPK (60:40:40)</li>
+                                <li><strong>Yield:</strong> 1.5 - 2 Tons/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Soybean -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Nitrogen fixation crop. Inoculate seeds with Rhizobium for better growth. Maintain moisture during flower and pod stages.">
+                        <img src="soyabean.jpg" class="card-img-top" alt="Soybean"
+                            onerror="this.src='https://placehold.co/500x300?text=Soybean'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Soybean</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Well-drained Loamy</li>
+                                <li><strong>Season:</strong> June - July</li>
+                                <li><strong>Fertilizer:</strong> NPK (20:60:40)</li>
+                                <li><strong>Yield:</strong> 2-3 Tons/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sunflower -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Requires full sun and well-drained soil. Protect from birds during ripening phase. Harvest when back of flower head turns yellow.">
+                        <img src="sunflowers.jpg" class="card-img-top" alt="Sunflower"
+                            onerror="this.src='https://placehold.co/500x300?text=Sunflower'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Sunflower</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Well-drained Loamy</li>
+                                <li><strong>Season:</strong> Year-round</li>
+                                <li><strong>Fertilizer:</strong> NPK (60:40:40)</li>
+                                <li><strong>Yield:</strong> 1.5 - 2 Tons/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sesame -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Requires minimal watering after establishment. Extremely drought-tolerant. Harvest when capsules at the base turn brown.">
+                        <img src="Sesame.jpg" class="card-img-top" alt="Sesame"
+                            onerror="this.src='https://placehold.co/500x300?text=Sesame'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Sesame (Til)</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Well-drained Sandy Loam</li>
+                                <li><strong>Season:</strong> June - July</li>
+                                <li><strong>Fertilizer:</strong> NPK (25:15:15)</li>
+                                <li><strong>Yield:</strong> 500-800 kg/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tobacco -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Topping and desuckering are crucial for leaf quality. Controlled irrigation required during curing phase.">
+                        <img src="tobacco.jpg" class="card-img-top" alt="Tobacco"
+                            onerror="this.src='https://placehold.co/500x300?text=Tobacco'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Tobacco</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Well-drained Sandy Loam</li>
+                                <li><strong>Season:</strong> Oct - Nov</li>
+                                <li><strong>Fertilizer:</strong> NPK (100:50:50)</li>
+                                <li><strong>Yield:</strong> 1.5 - 2 Tons/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gram -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Requires cool, dry climate. Nipping of young branches promotes lateral growth. Monitor for pod borer.">
+                        <img src="gram.jpg" class="card-img-top" alt="Gram"
+                            onerror="this.src='https://placehold.co/500x300?text=Gram'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Gram (Chickpea)</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Well-drained Loamy</li>
+                                <li><strong>Season:</strong> Oct - Nov</li>
+                                <li><strong>Fertilizer:</strong> NPK (20:60:20)</li>
+                                <li><strong>Yield:</strong> 1 - 2 Tons/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Arhar -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Intercropping with sorghum or pearl millet is recommended. Avoid waterlogging during flowering stage.">
+                        <img src="arhar.jpg" class="card-img-top" alt="Arhar"
+                            onerror="this.src='https://placehold.co/500x300?text=Arhar'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Arhar (Pigeon Pea)</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Well-drained Loamy</li>
+                                <li><strong>Season:</strong> June - July</li>
+                                <li><strong>Fertilizer:</strong> NPK (20:50:20)</li>
+                                <li><strong>Yield:</strong> 1.5 - 2 Tons/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Moong -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Drought-resistant pulse. Pick pods manually as they ripen. Highly susceptible to yellow mosaic virus.">
+                        <img src="mung.jpg" class="card-img-top" alt="Moong"
+                            onerror="this.src='https://placehold.co/500x300?text=Moong'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Moong (Green Gram)</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Well-drained Loamy</li>
+                                <li><strong>Season:</strong> June - July</li>
+                                <li><strong>Fertilizer:</strong> NPK (20:40:20)</li>
+                                <li><strong>Yield:</strong> 0.8 - 1.2 Tons/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Urad -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Grows well in hot and humid climates. Requires well-drained loamy soil. Harvest when pods turn black.">
+                        <img src="urad.jpg" class="card-img-top" alt="Urad"
+                            onerror="this.src='https://placehold.co/500x300?text=Urad'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Urad (Black Gram)</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Well-drained Loamy</li>
+                                <li><strong>Season:</strong> Kharif (June-July)</li>
+                                <li><strong>Fertilizer:</strong> NPK (20:40:20)</li>
+                                <li><strong>Yield:</strong> 0.6 - 1.0 Tons/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Peas -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Requires cool climate and well-drained soil. Provide support for vines. Harvest when pods are full and green.">
+                        <img src="pea.jpg" class="card-img-top" alt="Peas"
+                            onerror="this.src='https://placehold.co/500x300?text=Peas'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Peas</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Well-drained Loamy</li>
+                                <li><strong>Season:</strong> Oct - Nov</li>
+                                <li><strong>Fertilizer:</strong> NPK (20:60:40)</li>
+                                <li><strong>Yield:</strong> 2 - 3 Tons/ha</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Barley -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Malt-quality barley requires careful nitrogen management. Avoid late irrigation to prevent lodging. Ensure proper drainage during early growth.">
+                        <img src="barley.jpg" class="card-img-top" alt="Barley"
+                            onerror="this.src='https://placehold.co/500x300?text=Barley'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Barley</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Well-drained Loamy</li>
+                                <li><strong>Season:</strong> Rabi (Oct-Nov)</li>
+                                <li><strong>Fertilizer:</strong> NPK (60:30:20)</li>
+                                <li><strong>Yield:</strong> 1.5 - 2.5 Tons/Acre</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sorghum (Jowar) -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Extremely drought-tolerant. Ensure proper spacing for better grain development. Harvest when grain moisture is below 25%.">
+                        <img src="sorghum.jpg" class="card-img-top" alt="Sorghum"
+                            onerror="this.src='https://placehold.co/500x300?text=Sorghum'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Sorghum (Jowar)</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Alluvial / Black</li>
+                                <li><strong>Season:</strong> Kharif / Rabi</li>
+                                <li><strong>Fertilizer:</strong> NPK (80:40:40)</li>
+                                <li><strong>Yield:</strong> 1.2 - 1.8 Tons/Acre</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pearl Millet (Bajra) -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Requires very little water. Good for dry regions. Watch for downy mildew. Harvest when grains are hard and dry.">
+                        <img src="pearl.jpg" class="card-img-top" alt="Pearl Millet"
+                            onerror="this.src='https://placehold.co/500x300?text=Pearl+Millet'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Pearl Millet (Bajra)</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Sandy / Shallow Black</li>
+                                <li><strong>Season:</strong> Kharif (June-July)</li>
+                                <li><strong>Fertilizer:</strong> NPK (40:20:20)</li>
+                                <li><strong>Yield:</strong> 0.8 - 1.2 Tons/Acre</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ragi (Finger Millet) -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Highly nutritious and resistant to many pests. Transplanting gives better yield than direct sowing. Good for iron-rich diet.">
+                        <img src="ragi.jpg" class="card-img-top" alt="Ragi"
+                            onerror="this.src='https://placehold.co/500x300?text=Ragi'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Ragi (Finger Millet)</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Red / Sandy Loam</li>
+                                <li><strong>Season:</strong> Kharif (June-July)</li>
+                                <li><strong>Fertilizer:</strong> NPK (60:30:30)</li>
+                                <li><strong>Yield:</strong> 1.5 - 2.5 Tons/Acre</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tapioca -->
+                <div class="col-lg-3 col-md-6 reveal">
+                    <div class="agro-card"
+                        data-advice="Requires well-drained soil to prevent tuber rot. Harvest when leaves turn yellow and dry. Excellent crop for marginal lands.">
+                        <img src="tapioca.jpg" class="card-img-top" alt="Tapioca"
+                            onerror="this.src='https://placehold.co/500x300?text=Tapioca'">
+                        <div class="card-body">
+                            <h4 class="fw-bold mb-3">Tapioca (Cassava)</h4>
+                            <ul class="list-unstyled small">
+                                <li><strong>Soil:</strong> Sandy Loam / Clay Loam</li>
+                                <li><strong>Season:</strong> Year-round</li>
+                                <li><strong>Fertilizer:</strong> NPK (50:50:100)</li>
+                                <li><strong>Yield:</strong> 10 - 15 Tons/Acre</li>
+                            </ul>
+                            <button class="btn btn-agro-primary w-100 mt-3">Full Guide</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for Crop Details -->
+    <div class="modal fade" id="cropModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 30px; overflow: hidden;">
+                <div class="modal-body p-0">
+                    <div class="row g-0">
+                        <div class="col-md-5 d-none d-md-block">
+                            <img src="" id="modalImg" class="img-fluid h-100 w-100"
+                                style="object-fit: cover; min-height: 400px;">
+                        </div>
+                        <div class="col-md-7 p-5">
+                            <div class="d-flex justify-content-between align-items-start mb-4">
+                                <h2 class="fw-bold mb-0 text-success" id="modalTitle">Crop Name</h2>
+                                <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="row g-4 mb-4">
+                                <div class="col-6">
+                                    <p class="text-muted small mb-1">Soil Type</p>
+                                    <p class="fw-bold mb-0" id="modalSoil">-</p>
+                                </div>
+                                <div class="col-6">
+                                    <p class="text-muted small mb-1">Growth Season</p>
+                                    <p class="fw-bold mb-0" id="modalSeason">-</p>
+                                </div>
+                                <div class="col-6">
+                                    <p class="text-muted small mb-1">Fertilizer Requirement</p>
+                                    <p class="fw-bold mb-0" id="modalFert">-</p>
+                                </div>
+                                <div class="col-6">
+                                    <p class="text-muted small mb-1">Estimated Yield</p>
+                                    <p class="fw-bold mb-0" id="modalYield">-</p>
+                                </div>
+                            </div>
+                            <div class="bg-light p-4 rounded-4">
+                                <h6 class="fw-bold mb-3"><i class="fas fa-info-circle me-2"></i>Quick Advice</h6>
+                                <p class="small text-muted mb-0" id="modalAdvice">Ensure proper irrigation during the
+                                    first 3 weeks. Monitor for common pests like aphids and root rot. For optimal
+                                    results, test your soil pH before planting.</p>
+                            </div>
+                            <button class="btn btn-agro-primary w-100 mt-4" data-bs-dismiss="modal">Close Guide</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row g-4 text-center">
+                <div class="col-12">
+                    <p class="mb-0 opacity-75">&copy; 2026 AgroSmart. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Chatbot -->
+    <div class="chatbot-trigger" id="chatbotTrigger">
+        <i class="fas fa-robot"></i>
+    </div>
+
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <h5>
+                <img src="agri.jpg" class="chat-avatar" alt="AgroSmart AI">
+                AgroSmart AI
+            </h5>
+            <div class="chat-close" id="chatClose">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="message-container ai">
+                <img src="agri.jpg" class="message-avatar" alt="AI">
+                <div class="chat-message ai">
+                    Hello! I'm your AgroSmart Assistant. How can I help you with your crops today?
+                </div>
+            </div>
+        </div>
+        <div class="chat-footer">
+            <input type="file" id="imageInput" accept="image/*" style="display: none;">
+            <button class="chat-icon-btn" onclick="document.getElementById('imageInput').click()" title="Upload Image">
+                <i class="fas fa-image"></i>
+            </button>
+            <input type="text" class="chat-input" id="chatInput" placeholder="Type a message or send an image...">
+            <button class="chat-send" id="chatSend">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+
+    <script src="config.js"></script>
+    <script>
+        // Use local agri.jpg for the AI avatar
+        const aiAvatar = 'agri.jpg';
+
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 150) reveals[i].classList.add("active");
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        window.onload = reveal;
+
+        // Crop Search Functionality
+        document.getElementById('cropSearch').addEventListener('input', function () {
+            let filter = this.value.toUpperCase();
+            let cards = document.querySelectorAll('#cropContainer > .col-lg-3');
+            cards.forEach(card => {
+                let title = card.querySelector('h4').innerText;
+                if (title.toUpperCase().indexOf(filter) > -1) {
+                    card.classList.remove('d-none');
+                } else {
+                    card.classList.add('d-none');
+                }
+            });
+            reveal();
+        });
+
+        // Dynamic Modal Logic
+        document.getElementById('cropContainer').addEventListener('click', function (e) {
+            if (e.target.classList.contains('btn-agro-primary')) {
+                const card = e.target.closest('.agro-card');
+                const title = card.querySelector('h4').innerText;
+                const img = card.querySelector('img').src;
+                const listItems = card.querySelectorAll('ul li');
+
+                document.getElementById('modalTitle').innerText = title;
+                document.getElementById('modalImg').src = img;
+
+                const getVal = (li) => li.innerText.includes(':') ? li.innerText.split(':')[1].trim() : li.innerText;
+
+                document.getElementById('modalSoil').innerText = getVal(listItems[0]);
+                document.getElementById('modalSeason').innerText = getVal(listItems[1]);
+                document.getElementById('modalFert').innerText = getVal(listItems[2]);
+                document.getElementById('modalYield').innerText = getVal(listItems[3]);
+
+                const advice = card.getAttribute('data-advice') || "Ensure proper irrigation during the initial growth phase. Monitor for regional pests and ensure balanced nutrient application for optimal yield.";
+                document.getElementById('modalAdvice').innerText = advice;
+
+                const modalEl = document.getElementById('cropModal');
+                const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+                modal.show();
+            }
+        });
+
+        // AI Chatbot Logic
+        // The API key is now loaded from the ignored config.js file.
+        const API_KEY = typeof CONFIG !== 'undefined' ? CONFIG.OPENAI_API_KEY : 'YOUR_API_KEY_HERE';
+        const chatbotTrigger = document.getElementById('chatbotTrigger');
+        const chatWindow = document.getElementById('chatWindow');
+        const chatClose = document.getElementById('chatClose');
+        const chatInput = document.getElementById('chatInput');
+        const chatSend = document.getElementById('chatSend');
+        const chatBody = document.getElementById('chatBody');
+        const imageInput = document.getElementById('imageInput');
+
+        // Store chat history for context
+        let chatHistory = [
+            { role: "system", content: "You are AgroSmart AI, an expert agricultural assistant. Provide clear, accurate, and helpful advice on crops, soil management, pest control, fertilizers, and modern farming techniques. Be concise but thorough." }
+        ];
+
+        chatbotTrigger.addEventListener('click', () => {
+            chatWindow.classList.toggle('active');
+        });
+
+        chatClose.addEventListener('click', () => {
+            chatWindow.classList.remove('active');
+        });
+
+        function addMessage(content, sender, type = 'text') {
+            const container = document.createElement('div');
+            container.className = `message-container ${sender}`;
+
+            let messageContent = '';
+            if (type === 'text') {
+                messageContent = `<div class="chat-message ${sender}">${content}</div>`;
+            } else if (type === 'image') {
+                messageContent = `<div class="chat-message ${sender} p-1" style="max-width: 200px;"><img src="${content}" style="width: 100%; border-radius: 12px;"></div>`;
+            }
+
+            if (sender === 'ai') {
+                container.innerHTML = `
+                    <img src="${aiAvatar}" class="message-avatar" alt="AI">
+                    ${messageContent}
+                `;
+            } else {
+                container.innerHTML = `
+                    <div style="margin-left: auto;">${messageContent}</div>
+                `;
+            }
+
+            chatBody.appendChild(container);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const typing = document.createElement('div');
+            typing.className = 'message-container ai typing-container';
+            typing.innerHTML = `
+                <img src="${aiAvatar}" class="message-avatar" alt="AI">
+                <div class="chat-message ai typing"><span></span><span></span><span></span></div>
+            `;
+            chatBody.appendChild(typing);
+            chatBody.scrollTop = chatBody.scrollHeight;
+            return typing;
+        }
+
+        async function getAIResponse() {
+            try {
+                const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        model: 'gpt-4o-mini',
+                        messages: chatHistory,
+                        max_tokens: 1000
+                    })
+                });
+
+                const data = await response.json();
+                if (data.error) {
+                    throw new Error(data.error.message);
+                }
+                const aiMsg = data.choices[0].message.content;
+                chatHistory.push({ role: "assistant", content: aiMsg });
+                return aiMsg;
+            } catch (error) {
+                console.error('OpenAI API Error:', error);
+                return "I'm sorry, I'm having trouble connecting to my knowledge base. Please check your internet connection or try again later.";
+            }
+        }
+
+        imageInput.addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = async function (event) {
+                    const base64Image = event.target.result;
+                    addMessage(base64Image, 'user', 'image');
+
+                    const typing = showTypingIndicator();
+
+                    // Add to history with vision format
+                    chatHistory.push({
+                        role: "user",
+                        content: [
+                            { type: "text", text: "Please analyze this agricultural image and provide relevant advice." },
+                            { type: "image_url", image_url: { url: base64Image } }
+                        ]
+                    });
+
+                    const aiResponse = await getAIResponse();
+                    if (chatBody.contains(typing)) {
+                        chatBody.removeChild(typing);
+                    }
+                    addMessage(aiResponse, 'ai');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        async function handleChat() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+
+            addMessage(text, 'user');
+            chatInput.value = '';
+
+            chatHistory.push({ role: "user", content: text });
+
+            const typing = showTypingIndicator();
+            const aiResponse = await getAIResponse();
+
+            if (chatBody.contains(typing)) {
+                chatBody.removeChild(typing);
+            }
+
+            addMessage(aiResponse, 'ai');
+        }
+
+        chatSend.addEventListener('click', handleChat);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleChat();
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

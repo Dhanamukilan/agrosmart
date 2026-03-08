@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Schemes - AgroSmart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">🌾 Agro<span>Smart</span></a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="advisory.html">Crop Advisory</a></li>
+                    <li class="nav-item"><a class="nav-link" href="weather.html">Weather</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="schemes.html">Schemes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="market.html">Market</a></li>
+                    <li class="nav-item"><a class="nav-link" href="calculator.html">Calculator</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <h1>Government Schemes</h1>
+            <p>Empowering farmers through financial support</p>
+        </div>
+    </header>
+
+    <section class="section-padding">
+        <div class="container">
+            <div class="row mb-5 justify-content-center">
+                <div class="col-md-8">
+                    <div class="agro-card p-3 shadow-sm border-0">
+                        <div class="input-group">
+                            <span class="input-group-text bg-transparent border-0"><i
+                                    class="fas fa-search text-muted"></i></span>
+                            <input type="text" id="scheme-search" class="form-control border-0 shadow-none"
+                                placeholder="Search for schemes (e.g. Insurance, Subsidy, Irrigation)...">
+                            <select id="category-filter" class="form-select border-0 shadow-none border-start"
+                                style="max-width: 150px;">
+                                <option value="all">All Types</option>
+                                <option value="financial">Financial</option>
+                                <option value="insurance">Insurance</option>
+                                <option value="technical">Technical</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="schemes-grid" class="row g-4">
+                <!-- Schemes will be dynamically loaded here -->
+            </div>
+
+            <div id="no-results" class="text-center py-5 d-none">
+                <i class="fas fa-search-minus fa-3x text-muted mb-3"></i>
+                <p class="h5 text-muted">No schemes found matching your search.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+
+                </div>
+            </div>
+    </footer>
+
+    <script>
+        const schemesData = [
+            {
+                title: "PMFBY (Crop Insurance)",
+                category: "insurance",
+                icon: "fa-shield-alt",
+                color: "warning",
+                desc: "Pradhan Mantri Fasal Bima Yojana offers comprehensive insurance coverage against crop failure.",
+                benefits: ["Low premium rates", "Fast claim settlement"]
+            },
+            {
+                title: "PM-KISAN (Income Support)",
+                category: "financial",
+                icon: "fa-hand-holding-usd",
+                color: "success",
+                desc: "Direct income support of ₹6,000 per year to supplement financial needs of farmers.",
+                benefits: ["Direct Benefit Transfer", "National wide coverage"]
+            },
+            {
+                title: "Soil Health Card",
+                category: "technical",
+                icon: "fa-flask",
+                color: "info",
+                desc: "Helping farmers understand their soil productivity and correct nutrient deficiencies.",
+                benefits: ["Nutrient status info", "Fertilizer advice"]
+            },
+            {
+                title: "Kisan Credit Card (KCC)",
+                category: "financial",
+                icon: "fa-credit-card",
+                color: "primary",
+                desc: "Providing adequate and timely credit support from the banking system to farmers.",
+                benefits: ["Flexible credit", "Low interest rates"]
+            },
+            {
+                title: "PM-KUSUM (Solar Pumps)",
+                category: "technical",
+                icon: "fa-solar-panel",
+                color: "success",
+                desc: "Installation of solar pumps and grid-connected solar power plants for farmers.",
+                benefits: ["60% subsidy", "Reduced diesel costs"]
+            },
+            {
+                title: "Paramparagat Krishi Vikas",
+                category: "technical",
+                icon: "fa-seedling",
+                color: "success",
+                desc: "Promoting organic farming through cluster approach and Participatory Guarantee System.",
+                benefits: ["Organic certification", "Market assistance"]
+            }
+        ];
+
+        function renderSchemes(filter = 'all', search = '') {
+            const grid = document.getElementById('schemes-grid');
+            const noResults = document.getElementById('no-results');
+            grid.innerHTML = '';
+
+            const filtered = schemesData.filter(scheme => {
+                const matchesFilter = filter === 'all' || scheme.category === filter;
+                const matchesSearch = scheme.title.toLowerCase().includes(search.toLowerCase()) ||
+                    scheme.desc.toLowerCase().includes(search.toLowerCase());
+                return matchesFilter && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                noResults.classList.remove('d-none');
+            } else {
+                noResults.classList.add('d-none');
+                filtered.forEach(scheme => {
+                    const html = `
+                        <div class="col-lg-4 reveal active">
+                            <div class="agro-card p-4 h-100">
+                                <div class="bg-${scheme.color} bg-opacity-10 text-${scheme.color} p-3 rounded-circle d-inline-block mb-3">
+                                    <i class="fas ${scheme.icon} fa-2x"></i>
+                                </div>
+                                <h4 class="fw-bold">${scheme.title}</h4>
+                                <p class="text-muted small">${scheme.desc}</p>
+                                <ul class="list-unstyled small mb-4">
+                                    ${scheme.benefits.map(b => `<li><i class="fas fa-check text-success me-2"></i> ${b}</li>`).join('')}
+                                </ul>
+                                <button class="btn btn-agro-primary w-100 mt-auto">Details & Apply</button>
+                            </div>
+                        </div>
+                    `;
+                    grid.innerHTML += html;
+                });
+            }
+            reveal();
+        }
+
+        document.getElementById('category-filter').addEventListener('change', (e) => {
+            renderSchemes(e.target.value, document.getElementById('scheme-search').value);
+        });
+
+        document.getElementById('scheme-search').addEventListener('input', (e) => {
+            renderSchemes(document.getElementById('category-filter').value, e.target.value);
+        });
+
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 150) reveals[i].classList.add("active");
+            }
+        }
+
+        window.onload = () => {
+            renderSchemes();
+            reveal();
+        };
+        window.addEventListener("scroll", reveal);
+    </script>
+</body>
+
+</html>
