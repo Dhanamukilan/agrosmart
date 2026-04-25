@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <script src="session.js"></script>
 </head>
 
 <body>
@@ -24,6 +25,8 @@
                     <li class="nav-item"><a class="nav-link" href="market.html">Market</a></li>
                     <li class="nav-item"><a class="nav-link active" href="calculator.html">Calculator</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link btn-agro-outline-small px-3 ms-lg-3" href="login.html">Login</a></li>
+                    <li class="nav-item"><a class="nav-link btn-agro-primary-small px-3 ms-lg-2" href="signup.html">Join Us</a></li>
                 </ul>
             </div>
         </div>
@@ -127,9 +130,12 @@
 
     </footer>
 
+    <!-- JavaScript: Calculator logic + AJAX to PHP backend -->
     <script>
-        document.getElementById('profitForm').addEventListener('submit', function (e) {
+        // ─── Profit Calculator: JavaScript + PHP Backend ─────
+        document.getElementById('profitForm').addEventListener('submit', async function (e) {
             e.preventDefault();
+
             const land = parseFloat(document.getElementById('landSize').value);
             const seed = parseFloat(document.getElementById('seedCost').value);
             const fert = parseFloat(document.getElementById('fertCost').value);
@@ -137,31 +143,62 @@
             const yieldVal = parseFloat(document.getElementById('yield').value);
             const priceVal = parseFloat(document.getElementById('price').value);
 
+            // Client-side calculation (JavaScript)
             const cost = (seed + fert + labor) * land;
             const rev = yieldVal * land * priceVal;
             const profit = rev - cost;
 
+            // Display client-side results immediately
             document.getElementById('resCost').innerText = '₹' + cost.toLocaleString();
             document.getElementById('resRev').innerText = '₹' + rev.toLocaleString();
             document.getElementById('resProfit').innerText = '₹' + profit.toLocaleString();
 
-            const adviceBox = document.querySelector('.alert');
-            const adviceText = document.getElementById('profitAdvice');
-            if (profit > cost * 0.5) {
-                adviceBox.className = 'alert alert-success border-0 rounded-4 p-4 d-flex align-items-center';
-                adviceText.innerText = 'High profitability projected! This is an excellent choice for your current land size.';
-            } else if (profit > 0) {
-                adviceBox.className = 'alert alert-info border-0 rounded-4 p-4 d-flex align-items-center';
-                adviceText.innerText = 'Moderate profit expected. Consider optimizing labor costs to improve your margins.';
-            } else {
-                adviceBox.className = 'alert alert-danger border-0 rounded-4 p-4 d-flex align-items-center';
-                adviceText.innerText = 'Projected losses detected. Re-evaluate your input costs or choose a crop with better market value.';
+            // Send to PHP backend for server-side calculation + storage
+            try {
+                const response = await fetch('php/calculator_handler.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        landSize: land, seedCost: seed, fertCost: fert,
+                        laborCost: labor, yield: yieldVal, price: priceVal
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success && result.data) {
+                    // Use server-calculated values (PHP verification)
+                    document.getElementById('resCost').innerText = '₹' + result.data.totalCost.toLocaleString();
+                    document.getElementById('resRev').innerText = '₹' + result.data.totalRevenue.toLocaleString();
+                    document.getElementById('resProfit').innerText = '₹' + result.data.netProfit.toLocaleString();
+
+                    const adviceBox = document.querySelector('.alert');
+                    const adviceText = document.getElementById('profitAdvice');
+                    adviceBox.className = `alert alert-${result.data.alertType} border-0 rounded-4 p-4 d-flex align-items-center`;
+                    adviceText.innerText = result.data.advice;
+                }
+            } catch (error) {
+                // Fallback: use JavaScript-only calculation
+                console.log('PHP backend unavailable, using client-side calculation');
+                const adviceBox = document.querySelector('.alert');
+                const adviceText = document.getElementById('profitAdvice');
+                if (profit > cost * 0.5) {
+                    adviceBox.className = 'alert alert-success border-0 rounded-4 p-4 d-flex align-items-center';
+                    adviceText.innerText = 'High profitability projected! This is an excellent choice for your current land size.';
+                } else if (profit > 0) {
+                    adviceBox.className = 'alert alert-info border-0 rounded-4 p-4 d-flex align-items-center';
+                    adviceText.innerText = 'Moderate profit expected. Consider optimizing labor costs to improve your margins.';
+                } else {
+                    adviceBox.className = 'alert alert-danger border-0 rounded-4 p-4 d-flex align-items-center';
+                    adviceText.innerText = 'Projected losses detected. Re-evaluate your input costs or choose a crop with better market value.';
+                }
             }
 
             document.getElementById('resultArea').classList.remove('d-none');
             window.scrollTo({ top: document.getElementById('resultArea').offsetTop - 100, behavior: 'smooth' });
         });
 
+        // ─── Scroll Reveal Animation (JavaScript) ────────────
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
@@ -173,6 +210,6 @@
         window.addEventListener("scroll", reveal);
         window.onload = reveal;
     </script>
-</body>
+    <script src="notifications.js"></script>`n</body>
 
 </html>

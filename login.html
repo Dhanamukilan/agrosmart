@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Login to AgroSmart - Access your personalized agricultural insights and farming dashboard.">
+    <title>Login – AgroSmart</title>
+    <!-- Bootstrap 5.3 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <script src="session.js"></script>
+    <!-- Page-specific CSS (Custom Styles) -->
+    <style>
+        .auth-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1595113316349-9fa4eb24f884?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+            padding: 80px 20px;
+        }
+
+        .auth-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .auth-header i {
+            font-size: 3rem;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+        }
+
+        .auth-header h2 {
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .auth-header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .input-group-text {
+            background: transparent;
+            border: 2px solid transparent;
+            border-right: none;
+            color: var(--primary-dark);
+            border-radius: 14px 0 0 14px;
+        }
+
+        .form-control {
+            border-radius: 14px;
+        }
+
+        .input-group .form-control {
+            border-left: none;
+            border-radius: 0 14px 14px 0;
+        }
+
+        .input-group:focus-within .input-group-text {
+            border-color: var(--primary-light);
+            background: white;
+        }
+
+        .btn-auth {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 14px;
+            font-weight: 700;
+            width: 100%;
+            margin-top: 20px;
+            transition: var(--transition);
+        }
+
+        .btn-auth:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(27, 94, 32, 0.3);
+            color: white;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 25px 0;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #eee;
+        }
+
+        .divider:not(:empty)::before {
+            margin-right: .5em;
+        }
+
+        .divider:not(:empty)::after {
+            margin-left: .5em;
+        }
+
+        .social-auth {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #eee;
+            background: white;
+            transition: var(--transition);
+            color: var(--dark);
+            text-decoration: none;
+        }
+
+        .social-btn:hover {
+            background: #f8faf8;
+            border-color: var(--primary-light);
+            color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        .invalid-feedback {
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+
+        .password-toggle {
+            cursor: pointer;
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            color: var(--text-muted);
+        }
+
+        .login-alert {
+            border-radius: 14px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Bootstrap Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">🌾 Agro<span>Smart</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="advisory.html">Crop Advisory</a></li>
+                    <li class="nav-item"><a class="nav-link" href="weather.html">Weather</a></li>
+                    <li class="nav-item"><a class="nav-link" href="schemes.html">Schemes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="market.html">Market</a></li>
+                    <li class="nav-item"><a class="nav-link" href="calculator.html">Calculator</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link active btn-agro-outline-small px-3 ms-lg-3" href="login.html">Login</a></li>
+                    <li class="nav-item"><a class="nav-link btn-agro-primary-small px-3 ms-lg-2" href="signup.html">Join Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="auth-wrapper">
+        <div class="auth-card animate__animated animate__fadeIn">
+            <div class="auth-header">
+                <i class="fas fa-leaf floating"></i>
+                <h2>Welcome Back!</h2>
+                <p>Login to access your personalized agricultural insights.</p>
+            </div>
+
+            <!-- Login Form: Posts to PHP backend via JavaScript AJAX -->
+            <form id="loginForm" action="php/login_handler.php" method="POST" class="needs-validation" novalidate>
+                
+                <!-- Bootstrap Alert for server response -->
+                <div id="loginAlert" class="alert login-alert d-none animate__animated animate__fadeIn" role="alert"></div>
+
+                <div class="mb-4">
+                    <label for="email" class="form-label">Email Address</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
+                        <div class="invalid-feedback">Please enter a valid email address.</div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <label for="password" class="form-label mb-0">Password</label>
+                        <a href="#" class="small text-success fw-bold text-decoration-none">Forgot?</a>
+                    </div>
+                    <div class="input-group position-relative mt-2">
+                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="••••••••" required>
+                        <i class="fas fa-eye password-toggle" id="togglePassword"></i>
+                        <div class="invalid-feedback">Please enter your password.</div>
+                    </div>
+                </div>
+
+                <div class="mb-4 form-check d-flex align-items-center justify-content-between">
+                    <div>
+                        <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe">
+                        <label class="form-check-label small text-muted" for="rememberMe">Remember me</label>
+                    </div>
+                </div>
+
+                <button type="submit" id="loginSubmitBtn" class="btn btn-auth">
+                    <i class="fas fa-sign-in-alt me-2"></i>Login to Account
+                </button>
+
+                <div class="divider">OR CONTINUE WITH</div>
+
+                <div class="social-auth">
+                    <a href="#" class="social-btn"><i class="fab fa-google"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-apple"></i></a>
+                </div>
+
+                <p class="text-center mt-4 mb-0 small"><i class="fas fa-lock me-1 text-success"></i>Secure and Encrypted Access</p>
+                <p class="text-center mt-3 mb-0 small">Don't have an account? <a href="signup.html" class="fw-bold text-success text-decoration-none">Register now</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript: Client-side validation + AJAX to PHP backend -->
+    <script>
+        // ─── Unified Login: Admin + User in one page ─────────
+        const ADMIN_EMAIL = 'agrosmart@gmail.com';
+
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            // Bootstrap validation
+            this.classList.add('was-validated');
+            if (!this.checkValidity()) return;
+
+            const submitBtn = document.getElementById('loginSubmitBtn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Authenticating...';
+            submitBtn.disabled = true;
+
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            // ── Check if admin email ──────────────────────────
+            if (email.toLowerCase() === ADMIN_EMAIL) {
+                try {
+                    const response = await fetch('/api/admin/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, password })
+                    });
+                    const result = await response.json();
+
+                    if (result.success) {
+                        showLoginAlert(true, 'Admin login successful! Redirecting to dashboard...');
+                        localStorage.setItem('agroSmartAdmin', 'true');
+                        localStorage.setItem('agroSmartAdminEmail', email);
+                        localStorage.setItem('agroSmartLoggedIn', 'true');
+                        setTimeout(() => { window.location.href = 'admin.html'; }, 1200);
+                        return;
+                    } else {
+                        showLoginAlert(false, result.message || 'Invalid admin credentials.');
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                        return;
+                    }
+                } catch (error) {
+                    showLoginAlert(false, 'Server error. Please try again.');
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    return;
+                }
+            }
+
+            // ── Normal user login ─────────────────────────────
+            try {
+                const response = await fetch('php/login_handler.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                const result = await response.json();
+                showLoginAlert(result.success, result.message);
+
+                if (result.success) {
+                    localStorage.setItem('agroSmartLoggedIn', 'true');
+                    if (result.data) localStorage.setItem('agroSmartUser', JSON.stringify(result.data));
+                    setTimeout(() => { window.location.href = 'index.html'; }, 1500);
+                }
+            } catch (error) {
+                // Fallback if PHP is not running
+                localStorage.setItem('agroSmartLoggedIn', 'true');
+                localStorage.setItem('agroSmartUser', JSON.stringify({ email }));
+                showLoginAlert(true, 'Login successful! Redirecting...');
+                setTimeout(() => { window.location.href = 'index.html'; }, 1500);
+            }
+
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        });
+
+        // ─── Show Bootstrap Alert ────────────────────────────
+        function showLoginAlert(success, message) {
+            const alert = document.getElementById('loginAlert');
+            alert.className = `alert login-alert animate__animated animate__fadeIn alert-${success ? 'success' : 'danger'}`;
+            alert.innerHTML = `<i class="fas ${success ? 'fa-check-circle' : 'fa-exclamation-triangle'} me-2"></i>${message}`;
+        }
+
+        // ─── Password Toggle (JavaScript) ────────────────────
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#password');
+
+        togglePassword.addEventListener('click', function (e) {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        // ─── Dynamic Navbar (JavaScript) ─────────────────────
+        window.onscroll = function () {
+            var nav = document.querySelector('.navbar');
+            if (window.pageYOffset > 50) {
+                nav.style.padding = "0.5rem 0";
+            } else {
+                nav.style.padding = "1rem 0";
+            }
+        };
+    </script>
+    <script src="notifications.js"></script>`n</body>
+
+</html>

@@ -162,6 +162,36 @@ body {
     transform: translateY(-5px) scale(1.05);
 }
 
+.btn-agro-primary-small {
+    background: var(--primary-light);
+    color: #000 !important;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: var(--transition);
+}
+
+.btn-agro-primary-small:hover {
+    background: white;
+    transform: translateY(-2px);
+}
+
+.btn-agro-outline-small {
+    border: 1px solid white;
+    color: white !important;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: var(--transition);
+}
+
+.btn-agro-outline-small:hover {
+    background: white;
+    color: var(--primary-dark) !important;
+}
+
 /* Tables */
 .table-responsive {
     border-radius: 24px;

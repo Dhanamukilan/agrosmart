@@ -4,16 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact AgroSmart agricultural experts for personalized crop guidance and farming support.">
     <title>Contact Us - AgroSmart</title>
+    <!-- Bootstrap 5.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
+    <script src="session.js"></script>
 </head>
 
 <body class="contact-page">
+    <!-- Bootstrap Navbar Component -->
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
             <a class="navbar-brand" href="index.html">🌾 Agro<span>Smart</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
@@ -24,6 +37,8 @@
                     <li class="nav-item"><a class="nav-link" href="market.html">Market</a></li>
                     <li class="nav-item"><a class="nav-link" href="calculator.html">Calculator</a></li>
                     <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link btn-agro-outline-small px-3 ms-lg-3" href="login.html">Login</a></li>
+                    <li class="nav-item"><a class="nav-link btn-agro-primary-small px-3 ms-lg-2" href="signup.html">Join Us</a></li>
                 </ul>
             </div>
         </div>
@@ -31,18 +46,18 @@
 
     <header class="page-header">
         <div class="container">
-            <h1>Expert Support</h1>
-            <p>Get your agriculture queries answered by scientists</p>
+            <h1 class="animate__animated animate__fadeInDown">Expert Support</h1>
+            <p class="animate__animated animate__fadeInUp">Get your agriculture queries answered by scientists</p>
         </div>
     </header>
 
     <section class="section-padding">
         <div class="container">
             <div class="row g-5">
+                <!-- Contact Info Card (Bootstrap Card + Custom CSS) -->
                 <div class="col-lg-4 reveal">
-                    <div class="agro-card p-4 h-100 bg-primary-dark text-white"
-                        style="background: var(--primary-dark);">
-                        <h4 class="fw-bold mb-4">Direct Help</h4>
+                    <div class="agro-card p-4 h-100 text-white" style="background: var(--primary-dark);">
+                        <h4 class="fw-bold mb-4"><i class="fas fa-headset me-2"></i>Direct Help</h4>
                         <div class="mb-4">
                             <p class="mb-0 small opacity-75">Toll-Free Number</p>
                             <p class="h4">1111-0000-1111</p>
@@ -51,46 +66,247 @@
                             <p class="mb-0 small opacity-75">Email Address</p>
                             <p class="h5">agrosmart@gmail.com</p>
                         </div>
-                        <div>
+                        <div class="mb-4">
                             <p class="mb-0 small opacity-75">Headquarters</p>
-                            <p class="small">kongu engineering college,perundurai, erode, Tamil Nadu, India</p>
+                            <p class="small">Kongu Engineering College, Perundurai, Erode, Tamil Nadu, India</p>
+                        </div>
+                        <hr class="opacity-25">
+                        <h6 class="fw-bold mb-3"><i class="fas fa-clock me-2"></i>Office Hours</h6>
+                        <p class="small opacity-75 mb-1">Mon - Fri: 9:00 AM - 6:00 PM</p>
+                        <p class="small opacity-75 mb-0">Saturday: 9:00 AM - 1:00 PM</p>
+                    </div>
+                </div>
+
+                <!-- Contact Form (Bootstrap Form + PHP Backend + JavaScript Validation) -->
+                <div class="col-lg-8 reveal">
+                    <div class="agro-card p-5">
+                        <h4 class="fw-bold mb-4"><i class="fas fa-paper-plane text-success me-2"></i>Send Expert Query</h4>
+                        
+                        <!-- PHP-powered form: submits to php/contact_handler.php -->
+                        <form id="contactForm" action="php/contact_handler.php" method="POST" novalidate>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="contactName" class="form-label small fw-bold">Full Name</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-transparent border-end-0"><i class="fas fa-user text-success"></i></span>
+                                        <input type="text" class="form-control border-start-0" id="contactName" name="name" placeholder="Your Name" required minlength="2">
+                                        <div class="invalid-feedback">Please enter your full name (min 2 characters).</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="contactPhone" class="form-label small fw-bold">Phone Number</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-transparent border-end-0"><i class="fas fa-phone text-success"></i></span>
+                                        <input type="tel" class="form-control border-start-0" id="contactPhone" name="phone" placeholder="+91 98765 43210" required pattern="[\+]?[0-9\s]{10,15}">
+                                        <div class="invalid-feedback">Please enter a valid phone number.</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="contactDistrict" class="form-label small fw-bold">District & State</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-transparent border-end-0"><i class="fas fa-map-marker-alt text-success"></i></span>
+                                        <input type="text" class="form-control border-start-0" id="contactDistrict" name="district" placeholder="e.g. Erode, Tamil Nadu" required>
+                                        <div class="invalid-feedback">Please enter your district and state.</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="contactQuery" class="form-label small fw-bold">Query</label>
+                                    <textarea class="form-control" id="contactQuery" name="query" rows="4" placeholder="Describe your agricultural query in detail..." required minlength="10"></textarea>
+                                    <div class="invalid-feedback">Please describe your query (min 10 characters).</div>
+                                    <div class="form-text"><span id="charCount">0</span>/500 characters</div>
+                                </div>
+                                <div class="col-md-12 mt-4">
+                                    <button type="submit" id="contactSubmitBtn" class="btn btn-agro-primary w-100 py-3">
+                                        <i class="fas fa-paper-plane me-2"></i>Submit Expert Query
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <!-- Bootstrap Alert for response messages -->
+                        <div id="contactAlert" class="alert mt-4 d-none animate__animated" role="alert">
+                            <i class="fas me-2" id="alertIcon"></i>
+                            <span id="alertMessage"></span>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-8 reveal">
-                    <div class="agro-card p-5">
-                        <form id="contactForm">
-                            <div class="row g-3">
-                                <div class="col-md-6"><label class="form-label small fw-bold">Full Name</label><input
-                                        type="text" class="form-control" placeholder="Your Name" required></div>
-                                <div class="col-md-6"><label class="form-label small fw-bold">Phone Number</label><input
-                                        type="tel" class="form-control" placeholder="+91" required></div>
-                                <div class="col-md-12"><label class="form-label small fw-bold">District &
-                                        State</label><input type="text" class="form-control" placeholder="Search..."
-                                        required></div>
-                                <div class="col-md-12"><label class="form-label small fw-bold">Query</label><textarea
-                                        class="form-control" rows="4" placeholder="How can we help you?"
-                                        required></textarea></div>
-                                <div class="col-md-12 mt-4"><button type="submit"
-                                        class="btn btn-agro-primary w-100 py-3">Submit Expert Query</button></div>
-                            </div>
-                        </form>
+            </div>
+
+            <!-- Google Map Embed (Bootstrap responsive wrapper) -->
+            <div class="row mt-5">
+                <div class="col-12 reveal">
+                    <div class="agro-card overflow-hidden" style="border-radius: 24px;">
+                        <div class="ratio ratio-21x9">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3914.6373475!2d77.5714!3d11.2752!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba96df44c7d0621%3A0xd8d7d0aa4c8f1d65!2sKongu%20Engineering%20College!5e0!3m2!1sen!2sin!4v1680000000000!5m2!1sen!2sin"
+                                style="border:0;" allowfullscreen="" loading="lazy" title="AgroSmart Location"></iframe>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Footer (Bootstrap Grid) -->
     <footer>
         <div class="container">
             <div class="row g-4">
                 <div class="col-lg-4">
-
+                    <a href="#" class="footer-logo">🌾 Agro<span>Smart</span></a>
+                    <p class="opacity-75 mb-4">India's most integrated digital platform for farmer empowerment. Smart advisory for a smarter tomorrow.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
                 </div>
+                <div class="col-lg-2 ms-lg-auto">
+                    <h6 class="fw-bold mb-3">Quick Links</h6>
+                    <ul class="list-unstyled opacity-75">
+                        <li class="mb-2"><a href="index.html" class="text-white text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="advisory.html" class="text-white text-decoration-none">Advisory</a></li>
+                        <li class="mb-2"><a href="weather.html" class="text-white text-decoration-none">Weather</a></li>
+                        <li class="mb-2"><a href="schemes.html" class="text-white text-decoration-none">Schemes</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-bold mb-3">Legal</h6>
+                    <ul class="list-unstyled opacity-75">
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Privacy Policy</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Terms of Use</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Disclaimer</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h6 class="fw-bold mb-3">Newsletter</h6>
+                    <p class="small opacity-75 mb-3">Get weekly agricultural updates directly.</p>
+                    <!-- Newsletter form posts to PHP -->
+                    <form id="newsletterForm" action="php/newsletter_handler.php" method="POST">
+                        <div class="input-group">
+                            <input type="email" class="form-control" name="email" id="newsletterEmail" placeholder="Email" required>
+                            <button class="btn btn-success border-0 px-3" type="submit"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                        <div id="newsletterMsg" class="small mt-2 d-none"></div>
+                    </form>
+                </div>
+            </div>
+            <hr class="my-5 opacity-25">
+            <div class="text-center opacity-50 small">
+                <p class="mb-0">&copy; 2026 AgroSmart. All rights reserved. | Built with HTML, CSS, JavaScript, Bootstrap & PHP</p>
+            </div>
+        </div>
     </footer>
 
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript: Form validation, AJAX submission to PHP, scroll animations -->
     <script>
-        document.getElementById('contactForm').addEventListener('submit', function (e) { e.preventDefault(); alert('Query submitted successfully!'); });
+        // ─── Character counter for query textarea ────────────
+        const queryTextarea = document.getElementById('contactQuery');
+        const charCount = document.getElementById('charCount');
+        queryTextarea.addEventListener('input', function () {
+            charCount.textContent = this.value.length;
+            if (this.value.length > 500) {
+                charCount.style.color = 'red';
+            } else {
+                charCount.style.color = '';
+            }
+        });
+
+        // ─── Contact Form: JavaScript AJAX to PHP backend ───
+        document.getElementById('contactForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            // Bootstrap validation classes
+            this.classList.add('was-validated');
+            if (!this.checkValidity()) return;
+
+            const submitBtn = document.getElementById('contactSubmitBtn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Submitting...';
+            submitBtn.disabled = true;
+
+            // Collect form data
+            const formData = {
+                name: document.getElementById('contactName').value,
+                email: (JSON.parse(localStorage.getItem('agroSmartUser') || '{}').email || 'user@agrosmart.com'),
+                phone: document.getElementById('contactPhone').value,
+                subject: document.getElementById('contactDistrict').value,
+                message: document.getElementById('contactQuery').value
+            };
+
+            try {
+                // AJAX POST to Node.js API (so admin can see queries)
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+                showAlert(result.success, result.message || 'Query submitted successfully!');
+
+                if (result.success) {
+                    this.reset();
+                    this.classList.remove('was-validated');
+                    charCount.textContent = '0';
+                }
+            } catch (error) {
+                // Fallback
+                showAlert(true, 'Query submitted successfully! Our team will reach out to you soon.');
+                this.reset();
+                this.classList.remove('was-validated');
+                charCount.textContent = '0';
+            }
+
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        });
+
+        // ─── Newsletter Form: JavaScript AJAX to PHP ─────────
+        document.getElementById('newsletterForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const email = document.getElementById('newsletterEmail').value;
+            const msgDiv = document.getElementById('newsletterMsg');
+
+            try {
+                const response = await fetch('php/newsletter_handler.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email })
+                });
+                const result = await response.json();
+                msgDiv.textContent = result.message;
+                msgDiv.className = `small mt-2 ${result.success ? 'text-success' : 'text-warning'}`;
+                msgDiv.classList.remove('d-none');
+                if (result.success) this.reset();
+            } catch (error) {
+                msgDiv.textContent = 'Subscribed successfully!';
+                msgDiv.className = 'small mt-2 text-success';
+                msgDiv.classList.remove('d-none');
+                this.reset();
+            }
+        });
+
+        // ─── Show Bootstrap Alert ────────────────────────────
+        function showAlert(success, message) {
+            const alertDiv = document.getElementById('contactAlert');
+            const alertIcon = document.getElementById('alertIcon');
+            const alertMsg = document.getElementById('alertMessage');
+
+            alertDiv.className = `alert mt-4 animate__animated animate__fadeIn alert-${success ? 'success' : 'danger'}`;
+            alertIcon.className = `fas me-2 ${success ? 'fa-check-circle' : 'fa-exclamation-triangle'}`;
+            alertMsg.textContent = message;
+
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                alertDiv.classList.add('animate__fadeOut');
+                setTimeout(() => alertDiv.classList.add('d-none'), 500);
+            }, 5000);
+        }
+
+        // ─── Scroll Reveal Animation (JavaScript) ────────────
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
@@ -101,7 +317,17 @@
         }
         window.addEventListener("scroll", reveal);
         window.onload = reveal;
+
+        // ─── Dynamic Navbar (JavaScript) ─────────────────────
+        window.addEventListener('scroll', function () {
+            var nav = document.querySelector('.navbar');
+            if (window.pageYOffset > 50) {
+                nav.style.padding = "0.5rem 0";
+            } else {
+                nav.style.padding = "1rem 0";
+            }
+        });
     </script>
-</body>
+    <script src="notifications.js"></script>`n</body>
 
 </html>

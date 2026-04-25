@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +7,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-</head>
+    <script src="session.js"></script>
 
+</head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
@@ -24,6 +24,8 @@
                     <li class="nav-item"><a class="nav-link active" href="market.html">Market</a></li>
                     <li class="nav-item"><a class="nav-link" href="calculator.html">Calculator</a></li>
                     <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link btn-agro-outline-small px-3 ms-lg-3" href="login.html">Login</a></li>
+                    <li class="nav-item"><a class="nav-link btn-agro-primary-small px-3 ms-lg-2" href="signup.html">Join Us</a></li>
                 </ul>
             </div>
         </div>
@@ -32,7 +34,7 @@
     <header class="page-header">
         <div class="container">
             <h1>Market Price Tracker</h1>
-            <p>Live Mandi rates across India</p>
+            <p>Live Mandi rates across India — updated by AgroSmart experts</p>
         </div>
     </header>
 
@@ -41,63 +43,29 @@
             <div class="row mb-4 reveal">
                 <div class="col-md-6">
                     <div class="input-group">
-                        <span class="input-group-text bg-white border-end-0"><i
-                                class="fas fa-search text-muted"></i></span>
-                        <input type="text" class="form-control border-start-0" placeholder="Search crop or market...">
+                        <span class="input-group-text bg-white border-end-0"><i class="fas fa-search text-muted"></i></span>
+                        <input type="text" class="form-control border-start-0" id="searchInput" placeholder="Search crop or market...">
                     </div>
                 </div>
                 <div class="col-md-3 ms-auto">
-                    <select class="form-select">
-                        <option selected>Filter by State</option>
-                        <option>Tamil Nadu</option>
-                        <option>Maharashtra</option>
-                        <option>Punjab</option>
+                    <select class="form-select" id="stateFilter">
+                        <option value="">All States</option>
                     </select>
                 </div>
             </div>
-
-            <div class="table-responsive reveal">
+            <div id="marketLoader" class="text-center py-5">
+                <i class="fas fa-spinner fa-spin fa-2x text-success"></i>
+                <p class="mt-2 text-muted">Loading live market prices...</p>
+            </div>
+            <div class="table-responsive reveal" id="marketTableWrap" style="display:none">
                 <table class="table agro-table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Crop</th>
-                            <th>Market</th>
-                            <th>Current Price</th>
-                            <th>Daily Trend</th>
-                            <th>Last Sync</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Rice</strong></td>
-                            <td>Chennai</td>
-                            <td>₹2,200/q</td>
-                            <td><span class="badge bg-success"><i class="fas fa-caret-up"></i> 2.5%</span></td>
-                            <td>10m ago</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Wheat</strong></td>
-                            <td>Delhi</td>
-                            <td>₹2,100/q</td>
-                            <td><span class="badge bg-danger"><i class="fas fa-caret-down"></i> 1.2%</span></td>
-                            <td>1h ago</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Cotton</strong></td>
-                            <td>Mumbai</td>
-                            <td>₹6,400/q</td>
-                            <td><span class="badge bg-success"><i class="fas fa-caret-up"></i> 5.0%</span></td>
-                            <td>30m ago</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Sugarcane</strong></td>
-                            <td>Pune</td>
-                            <td>₹3,150/q</td>
-                            <td><span class="badge bg-secondary">Stable</span></td>
-                            <td>5h ago</td>
-                        </tr>
-                    </tbody>
+                    <thead><tr><th>Crop</th><th>Market</th><th>State</th><th>Current Price</th><th>Daily Trend</th><th>Last Updated</th></tr></thead>
+                    <tbody id="marketBody"></tbody>
                 </table>
+            </div>
+            <div id="noResults" class="text-center py-5 d-none">
+                <i class="fas fa-search-minus fa-3x text-muted mb-3"></i>
+                <p class="h5 text-muted">No results found.</p>
             </div>
         </div>
     </section>
@@ -106,22 +74,100 @@
         <div class="container">
             <div class="row g-4">
                 <div class="col-lg-4">
-
+                    <a href="#" class="footer-logo">🌾 Agro<span>Smart</span></a>
+                    <p class="opacity-75 mb-4">India's most integrated digital platform for farmer empowerment.</p>
                 </div>
+                <div class="col-lg-2 ms-lg-auto">
+                    <h6 class="fw-bold mb-3">Quick Links</h6>
+                    <ul class="list-unstyled opacity-75">
+                        <li class="mb-2"><a href="index.html" class="text-white text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="advisory.html" class="text-white text-decoration-none">Advisory</a></li>
+                        <li class="mb-2"><a href="weather.html" class="text-white text-decoration-none">Weather</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h6 class="fw-bold mb-3">Newsletter</h6>
+                    <form id="newsletterForm"><div class="input-group"><input type="email" class="form-control" name="email" id="newsletterEmail" placeholder="Email" required><button class="btn btn-success border-0 px-3" type="submit"><i class="fas fa-paper-plane"></i></button></div></form>
+                </div>
+            </div>
+            <hr class="my-4 opacity-25">
+            <p class="text-center opacity-50 small mb-0">&copy; 2026 AgroSmart. Built with HTML, CSS, JavaScript, Bootstrap & PHP</p>
+        </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                if (elementTop < windowHeight - 150) reveals[i].classList.add("active");
-            }
-        }
-        window.addEventListener("scroll", reveal);
-        window.onload = reveal;
-    </script>
-</body>
+    // ─── Load Market Prices from API ─────────────────────
+    let allPrices = [];
 
+    async function loadMarketPrices() {
+        try {
+            const r = await fetch('/api/market');
+            const d = await r.json();
+            if (d.success) {
+                allPrices = d.data;
+                renderPrices(allPrices);
+                loadStates();
+            }
+        } catch(e) { console.error(e); }
+        document.getElementById('marketLoader').style.display = 'none';
+        document.getElementById('marketTableWrap').style.display = 'block';
+    }
+
+    function renderPrices(prices) {
+        const tbody = document.getElementById('marketBody');
+        const noRes = document.getElementById('noResults');
+        if (prices.length === 0) { tbody.innerHTML = ''; noRes.classList.remove('d-none'); return; }
+        noRes.classList.add('d-none');
+        tbody.innerHTML = prices.map(m => {
+            const trendIcon = m.trend === 'up' ? 'fa-caret-up' : m.trend === 'down' ? 'fa-caret-down' : '';
+            const trendClass = m.trend === 'up' ? 'bg-success' : m.trend === 'down' ? 'bg-danger' : 'bg-secondary';
+            const trendText = m.trend === 'stable' ? 'Stable' : `<i class="fas ${trendIcon}"></i> ${m.trendPercent}%`;
+            const ago = timeAgo(m.lastUpdated || m.updatedAt);
+            return `<tr><td><strong>${m.crop}</strong></td><td>${m.market}</td><td>${m.state}</td><td>₹${m.price.toLocaleString()}/q</td><td><span class="badge ${trendClass}">${trendText}</span></td><td>${ago}</td></tr>`;
+        }).join('');
+    }
+
+    async function loadStates() {
+        try {
+            const r = await fetch('/api/market/states');
+            const d = await r.json();
+            const sel = document.getElementById('stateFilter');
+            d.data.forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; sel.appendChild(o); });
+        } catch(e) {}
+    }
+
+    // Search & filter
+    document.getElementById('searchInput').addEventListener('input', filterPrices);
+    document.getElementById('stateFilter').addEventListener('change', filterPrices);
+
+    function filterPrices() {
+        const search = document.getElementById('searchInput').value.toLowerCase();
+        const state = document.getElementById('stateFilter').value;
+        const filtered = allPrices.filter(m => {
+            const matchSearch = !search || m.crop.toLowerCase().includes(search) || m.market.toLowerCase().includes(search);
+            const matchState = !state || m.state === state;
+            return matchSearch && matchState;
+        });
+        renderPrices(filtered);
+    }
+
+    function timeAgo(date) {
+        const s = Math.floor((Date.now() - new Date(date)) / 1000);
+        if (s < 60) return 'Just now'; if (s < 3600) return Math.floor(s/60) + 'm ago';
+        if (s < 86400) return Math.floor(s/3600) + 'h ago'; return Math.floor(s/86400) + 'd ago';
+    }
+
+    // ─── Scroll reveal ─────────────────────────────────────
+    function reveal() { document.querySelectorAll('.reveal').forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight - 150) el.classList.add('active'); }); }
+    window.addEventListener('scroll', reveal);
+    window.onload = () => { loadMarketPrices(); reveal(); };
+
+    // Newsletter
+    document.getElementById('newsletterForm')?.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        try { await fetch('/api/newsletter', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({email:document.getElementById('newsletterEmail').value}) }); alert('Subscribed!'); this.reset(); } catch(e) {}
+    });
+    </script>
+    <script src="notifications.js"></script>`n</body>
 </html>

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard – AgroSmart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        :root { --primary-dark:#1B5E20; --primary-light:#66BB6A; --accent:#FFA000; --bg:#f4f7f4; --card-bg:#fff; --sidebar-w:260px; --transition:all .4s cubic-bezier(.23,1,.32,1); }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Poppins',sans-serif;background:var(--bg);color:#333;display:flex;min-height:100vh}
+        .sidebar{width:var(--sidebar-w);background:linear-gradient(180deg,#0d2b0e 0%,var(--primary-dark) 100%);color:#fff;padding:30px 20px;position:fixed;top:0;left:0;height:100vh;z-index:100;display:flex;flex-direction:column;transition:var(--transition)}
+        .sidebar .brand{font-size:1.4rem;font-weight:800;margin-bottom:40px;display:flex;align-items:center;gap:10px}
+        .sidebar .brand span{color:var(--primary-light)}
+        .sidebar .nav-menu{list-style:none;padding:0;flex:1}
+        .sidebar .nav-menu li{margin-bottom:5px}
+        .sidebar .nav-menu a{color:rgba(255,255,255,.7);text-decoration:none;padding:12px 16px;border-radius:12px;display:flex;align-items:center;gap:12px;font-weight:500;font-size:.9rem;transition:var(--transition)}
+        .sidebar .nav-menu a:hover,.sidebar .nav-menu a.active{background:rgba(255,255,255,.12);color:#fff}
+        .sidebar .nav-menu a i{width:20px;text-align:center}
+        .sidebar .logout-box{border-top:1px solid rgba(255,255,255,.1);padding-top:20px}
+        .sidebar .logout-box a{color:rgba(255,255,255,.6);text-decoration:none;font-size:.85rem;display:flex;align-items:center;gap:8px;transition:var(--transition)}
+        .sidebar .logout-box a:hover{color:#ff5252}
+        .main{margin-left:var(--sidebar-w);flex:1;padding:30px}
+        .top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px}
+        .top-bar h1{font-size:1.6rem;font-weight:800;color:var(--primary-dark)}
+        .top-bar .admin-info{display:flex;align-items:center;gap:12px;background:var(--card-bg);padding:10px 20px;border-radius:50px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+        .stat-card{background:var(--card-bg);border-radius:20px;padding:25px;box-shadow:0 4px 15px rgba(0,0,0,.04);transition:var(--transition);border:1px solid #f0f0f0}
+        .stat-card:hover{transform:translateY(-5px);box-shadow:0 10px 30px rgba(0,0,0,.08)}
+        .stat-card .stat-icon{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#fff;margin-bottom:15px}
+        .stat-card h3{font-size:2rem;font-weight:800;margin-bottom:2px}
+        .stat-card p{font-size:.85rem;color:#888;margin:0}
+        .panel{background:var(--card-bg);border-radius:20px;padding:25px;box-shadow:0 4px 15px rgba(0,0,0,.04);margin-bottom:25px;border:1px solid #f0f0f0}
+        .panel h4{font-weight:700;color:var(--primary-dark);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+        .query-card{border:1px solid #f0f0f0;border-radius:16px;padding:20px;margin-bottom:15px;transition:var(--transition)}
+        .query-card:hover{border-color:var(--primary-light);box-shadow:0 4px 15px rgba(102,187,106,.1)}
+        .query-card .q-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+        .query-card .q-name{font-weight:700;color:var(--primary-dark)}
+        .query-card .q-email{font-size:.8rem;color:#888}
+        .query-card .q-message{font-size:.9rem;color:#555;line-height:1.5;margin-bottom:12px}
+        .query-card .q-date{font-size:.75rem;color:#aaa}
+        .badge-pending{background:#FFF3E0;color:#E65100}
+        .badge-replied{background:#E8F5E9;color:#2E7D32}
+        .reply-box{margin-top:12px;display:none}
+        .reply-box.show{display:block}
+        .reply-box textarea{border:2px solid #eee;border-radius:12px;padding:12px;font-size:.9rem;resize:none;transition:var(--transition)}
+        .reply-box textarea:focus{border-color:var(--primary-light);box-shadow:0 0 0 .2rem rgba(102,187,106,.15)}
+        .admin-reply-display{background:#E8F5E9;border-radius:12px;padding:12px 16px;margin-top:10px;font-size:.85rem}
+        .admin-reply-display strong{color:var(--primary-dark)}
+        .market-table th{font-size:.85rem;font-weight:600;color:#666;text-transform:uppercase;letter-spacing:.5px}
+        .market-table td{vertical-align:middle;font-size:.9rem}
+        .tab-content>.tab-pane{display:none}
+        .tab-content>.tab-pane.active{display:block}
+        .section{display:none}
+        .section.active{display:block}
+        .modal-content{border-radius:20px;border:none}
+        .modal-header{border-bottom:1px solid #f0f0f0}
+        .modal-footer{border-top:1px solid #f0f0f0}
+        .convo-box{max-height:300px;overflow-y:auto;padding:10px;background:#f9fdf9;border-radius:12px;margin-top:10px}
+        .convo-msg{padding:8px 12px;border-radius:12px;margin-bottom:8px;font-size:.85rem;max-width:85%}
+        .convo-admin{background:#E8F5E9;color:#1B5E20;margin-right:auto;border-bottom-left-radius:4px}
+        .convo-user{background:#E3F2FD;color:#1565C0;margin-left:auto;border-bottom-right-radius:4px}
+        .convo-time{font-size:.65rem;color:#999;margin-top:3px}
+        .admin-notif-bell{position:relative;cursor:pointer;color:rgba(255,255,255,.7);font-size:1.1rem;transition:all .3s}
+        .admin-notif-bell:hover{color:#FFA000}
+        .admin-notif-dot{position:absolute;top:-3px;right:-5px;width:10px;height:10px;background:#f44336;border-radius:50%}
+        .crop-table th,.scheme-table th{font-size:.85rem;font-weight:600;color:#666;text-transform:uppercase}
+        .crop-table td,.scheme-table td{vertical-align:middle;font-size:.9rem}
+        @media(max-width:768px){.sidebar{width:0;padding:0;overflow:hidden}.main{margin-left:0}}
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="brand">🌾 Agro<span>Smart</span></div>
+        <ul class="nav-menu">
+            <li><a href="#" class="active" data-section="dashboard"><i class="fas fa-tachometer-alt"></i>Dashboard</a></li>
+            <li><a href="#" data-section="queries"><i class="fas fa-envelope"></i>User Queries</a></li>
+            <li><a href="#" data-section="market"><i class="fas fa-chart-line"></i>Market Prices</a></li>
+            <li><a href="#" data-section="crops"><i class="fas fa-seedling"></i>Crop Advisory</a></li>
+            <li><a href="#" data-section="schemes"><i class="fas fa-hand-holding-usd"></i>Schemes</a></li>
+        </ul>
+        <div class="logout-box">
+            <a href="#" id="adminLogout"><i class="fas fa-sign-out-alt"></i>Logout</a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main">
+        <div class="top-bar">
+            <h1 id="sectionTitle">Dashboard</h1>
+            <div class="d-flex align-items-center gap-3">
+                <div class="admin-notif-bell" id="adminBell" title="Notifications" onclick="loadAdminNotifs()"><i class="fas fa-bell"></i><span class="admin-notif-dot d-none" id="adminDot"></span></div>
+                <div class="admin-info"><i class="fas fa-user-shield text-success"></i><span class="fw-bold small">Admin</span></div>
+            </div>
+        </div>
+
+        <!-- DASHBOARD SECTION -->
+        <div id="section-dashboard" class="section active">
+            <div class="row g-4 mb-4">
+                <div class="col-md-2"><div class="stat-card"><div class="stat-icon" style="background:linear-gradient(135deg,#1B5E20,#66BB6A)"><i class="fas fa-envelope"></i></div><h3 id="statTotal">0</h3><p>Queries</p></div></div>
+                <div class="col-md-2"><div class="stat-card"><div class="stat-icon" style="background:linear-gradient(135deg,#E65100,#FFA000)"><i class="fas fa-clock"></i></div><h3 id="statPending">0</h3><p>Pending</p></div></div>
+                <div class="col-md-2"><div class="stat-card"><div class="stat-icon" style="background:linear-gradient(135deg,#1565C0,#42A5F5)"><i class="fas fa-chart-bar"></i></div><h3 id="statMarket">0</h3><p>Market</p></div></div>
+                <div class="col-md-2"><div class="stat-card"><div class="stat-icon" style="background:linear-gradient(135deg,#2E7D32,#81C784)"><i class="fas fa-seedling"></i></div><h3 id="statCrops">0</h3><p>Crops</p></div></div>
+                <div class="col-md-2"><div class="stat-card"><div class="stat-icon" style="background:linear-gradient(135deg,#F57F17,#FFCA28)"><i class="fas fa-scroll"></i></div><h3 id="statSchemes">0</h3><p>Schemes</p></div></div>
+                <div class="col-md-2"><div class="stat-card"><div class="stat-icon" style="background:linear-gradient(135deg,#6A1B9A,#AB47BC)"><i class="fas fa-users"></i></div><h3 id="statSubs">0</h3><p>Subs</p></div></div>
+            </div>
+            <div class="panel"><h4><i class="fas fa-clock text-warning"></i>Recent Pending Queries</h4><div id="recentQueries"><p class="text-muted small">Loading...</p></div></div>
+        </div>
+
+        <!-- QUERIES SECTION -->
+        <div id="section-queries" class="section">
+            <div class="d-flex gap-2 mb-4">
+                <button class="btn btn-sm btn-success rounded-pill px-3 filter-btn active" data-filter="all">All</button>
+                <button class="btn btn-sm btn-outline-warning rounded-pill px-3 filter-btn" data-filter="pending">Pending</button>
+                <button class="btn btn-sm btn-outline-success rounded-pill px-3 filter-btn" data-filter="replied">Replied</button>
+            </div>
+            <div id="queriesList"><p class="text-muted">Loading queries...</p></div>
+        </div>
+
+        <!-- MARKET SECTION -->
+        <div id="section-market" class="section">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <p class="text-muted mb-0" id="marketCount">0 entries</p>
+                <button class="btn btn-success rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#addMarketModal"><i class="fas fa-plus me-2"></i>Add New Price</button>
+            </div>
+            <div class="panel p-0 overflow-hidden">
+                <div class="table-responsive">
+                    <table class="table market-table mb-0">
+                        <thead style="background:var(--primary-dark);color:#fff"><tr><th>Crop</th><th>Market</th><th>State</th><th>Price (₹/q)</th><th>Trend</th><th>Updated</th><th>Actions</th></tr></thead>
+                        <tbody id="marketTableBody"><tr><td colspan="7" class="text-center text-muted py-4">Loading...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- CROPS SECTION -->
+        <div id="section-crops" class="section">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <p class="text-muted mb-0" id="cropsCount">0 crops</p>
+                <button class="btn btn-success rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#addCropModal"><i class="fas fa-plus me-2"></i>Add Crop</button>
+            </div>
+            <div class="panel p-0 overflow-hidden"><div class="table-responsive"><table class="table crop-table mb-0"><thead style="background:var(--primary-dark);color:#fff"><tr><th>Name</th><th>Category</th><th>Season</th><th>Soil</th><th>Water</th><th>Actions</th></tr></thead><tbody id="cropsTableBody"><tr><td colspan="6" class="text-center py-4 text-muted">Loading...</td></tr></tbody></table></div></div>
+        </div>
+
+        <!-- SCHEMES SECTION -->
+        <div id="section-schemes" class="section">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <p class="text-muted mb-0" id="schemesCount">0 schemes</p>
+                <button class="btn btn-success rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#addSchemeModal"><i class="fas fa-plus me-2"></i>Add Scheme</button>
+            </div>
+            <div class="panel p-0 overflow-hidden"><div class="table-responsive"><table class="table scheme-table mb-0"><thead style="background:var(--primary-dark);color:#fff"><tr><th>Title</th><th>Category</th><th>Description</th><th>Eligibility</th><th>Actions</th></tr></thead><tbody id="schemesTableBody"><tr><td colspan="5" class="text-center py-4 text-muted">Loading...</td></tr></tbody></table></div></div>
+        </div>
+    </div>
+
+    <!-- Add Market Modal -->
+    <div class="modal fade" id="addMarketModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content">
+        <div class="modal-header"><h5 class="modal-title fw-bold"><i class="fas fa-plus-circle text-success me-2"></i>Add Market Price</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-body">
+            <form id="addMarketForm">
+                <div class="row g-3">
+                    <div class="col-6"><label class="form-label small fw-bold">Crop Name</label><input type="text" class="form-control" id="mCrop" required></div>
+                    <div class="col-6"><label class="form-label small fw-bold">Market</label><input type="text" class="form-control" id="mMarket" required></div>
+                    <div class="col-6"><label class="form-label small fw-bold">State</label><input type="text" class="form-control" id="mState" required></div>
+                    <div class="col-6"><label class="form-label small fw-bold">Price (₹/quintal)</label><input type="number" class="form-control" id="mPrice" required></div>
+                    <div class="col-6"><label class="form-label small fw-bold">Trend</label><select class="form-select" id="mTrend"><option value="stable">Stable</option><option value="up">Up</option><option value="down">Down</option></select></div>
+                    <div class="col-6"><label class="form-label small fw-bold">Trend %</label><input type="number" step="0.1" class="form-control" id="mTrendPct" value="0"></div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer"><button class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button><button class="btn btn-success rounded-pill px-4" id="saveMarketBtn"><i class="fas fa-save me-1"></i>Save & Notify</button></div>
+    </div></div></div>
+
+    <!-- Edit Market Modal -->
+    <div class="modal fade" id="editMarketModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content">
+        <div class="modal-header"><h5 class="modal-title fw-bold"><i class="fas fa-edit text-primary me-2"></i>Update Price</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-body">
+            <input type="hidden" id="editId">
+            <div class="mb-3"><label class="form-label small fw-bold">Crop</label><input type="text" class="form-control" id="editCrop" disabled></div>
+            <div class="mb-3"><label class="form-label small fw-bold">New Price (₹/quintal)</label><input type="number" class="form-control" id="editPrice" required></div>
+            <div class="row g-3">
+                <div class="col-6"><label class="form-label small fw-bold">Trend</label><select class="form-select" id="editTrend"><option value="stable">Stable</option><option value="up">Up</option><option value="down">Down</option></select></div>
+                <div class="col-6"><label class="form-label small fw-bold">Trend %</label><input type="number" step="0.1" class="form-control" id="editTrendPct"></div>
+            </div>
+        </div>
+        <div class="modal-footer"><button class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary rounded-pill px-4" id="updateMarketBtn"><i class="fas fa-save me-1"></i>Update & Notify</button></div>
+    </div></div></div>
+
+    <!-- Add Crop Modal -->
+    <div class="modal fade" id="addCropModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title fw-bold"><i class="fas fa-seedling text-success me-2"></i>Add Crop</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="addCropForm"><div class="row g-3"><div class="col-6"><label class="form-label small fw-bold">Crop Name</label><input class="form-control" id="cName" required></div><div class="col-6"><label class="form-label small fw-bold">Category</label><select class="form-select" id="cCat"><option value="cereal">Cereal</option><option value="vegetable">Vegetable</option><option value="fruit">Fruit</option><option value="cash_crop">Cash Crop</option><option value="oilseed">Oilseed</option><option value="pulse">Pulse</option><option value="spice">Spice</option><option value="millet">Millet</option><option value="plantation">Plantation</option><option value="tuber">Tuber</option></select></div><div class="col-6"><label class="form-label small fw-bold">Season</label><input class="form-control" id="cSeason"></div><div class="col-6"><label class="form-label small fw-bold">Soil Type</label><input class="form-control" id="cSoil"></div><div class="col-6"><label class="form-label small fw-bold">Fertilizer</label><input class="form-control" id="cFert"></div><div class="col-6"><label class="form-label small fw-bold">Yield</label><input class="form-control" id="cYield"></div><div class="col-6"><label class="form-label small fw-bold">Water</label><select class="form-select" id="cWater"><option value="low">Low</option><option value="medium" selected>Medium</option><option value="high">High</option></select></div><div class="col-6"><label class="form-label small fw-bold">Growth Duration</label><input class="form-control" id="cDuration"></div><div class="col-12"><label class="form-label small fw-bold">Advice</label><textarea class="form-control" id="cAdvice" rows="2"></textarea></div></div></form></div><div class="modal-footer"><button class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button><button class="btn btn-success rounded-pill px-4" id="saveCropBtn"><i class="fas fa-save me-1"></i>Save & Notify</button></div></div></div></div>
+
+    <!-- Add Scheme Modal -->
+    <div class="modal fade" id="addSchemeModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title fw-bold"><i class="fas fa-scroll text-warning me-2"></i>Add Scheme</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><form id="addSchemeForm"><div class="row g-3"><div class="col-6"><label class="form-label small fw-bold">Title</label><input class="form-control" id="sTitle" required></div><div class="col-6"><label class="form-label small fw-bold">Category</label><select class="form-select" id="sCat"><option value="financial">Financial</option><option value="insurance">Insurance</option><option value="technical">Technical</option></select></div><div class="col-12"><label class="form-label small fw-bold">Description</label><textarea class="form-control" id="sDesc" rows="2"></textarea></div><div class="col-12"><label class="form-label small fw-bold">Eligibility</label><input class="form-control" id="sElig"></div><div class="col-6"><label class="form-label small fw-bold">Benefits (comma-separated)</label><input class="form-control" id="sBenefits"></div><div class="col-6"><label class="form-label small fw-bold">Application Link</label><input class="form-control" id="sLink"></div></div></form></div><div class="modal-footer"><button class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button><button class="btn btn-success rounded-pill px-4" id="saveSchemeBtn"><i class="fas fa-save me-1"></i>Save & Notify</button></div></div></div></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    // ─── Auth Guard ────────────────────────────────────────
+    if (localStorage.getItem('agroSmartAdmin') !== 'true') { window.location.href = 'login.html'; }
+
+    // ─── Sidebar Navigation ────────────────────────────────
+    document.querySelectorAll('[data-section]').forEach(link => {
+        link.addEventListener('click', e => {
+            e.preventDefault();
+            document.querySelectorAll('.nav-menu a').forEach(a => a.classList.remove('active'));
+            link.classList.add('active');
+            const sec = link.dataset.section;
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById('section-' + sec).classList.add('active');
+            document.getElementById('sectionTitle').textContent = link.textContent.trim();
+            if (sec === 'dashboard') loadStats();
+            if (sec === 'queries') loadQueries();
+            if (sec === 'market') loadMarket();
+            if (sec === 'crops') loadCrops();
+            if (sec === 'schemes') loadSchemes();
+        });
+    });
+
+    // ─── Logout ────────────────────────────────────────────
+    document.getElementById('adminLogout').addEventListener('click', e => {
+        e.preventDefault();
+        localStorage.removeItem('agroSmartAdmin');
+        localStorage.removeItem('agroSmartAdminEmail');
+        localStorage.removeItem('agroSmartLoggedIn');
+        window.location.href = 'login.html';
+    });
+
+    // ─── Load Dashboard Stats ──────────────────────────────
+    async function loadStats() {
+        try {
+            const r = await fetch('/api/admin/stats');
+            const d = await r.json();
+            if (d.success) {
+                document.getElementById('statTotal').textContent = d.data.totalQueries;
+                document.getElementById('statPending').textContent = d.data.pendingQueries;
+                document.getElementById('statMarket').textContent = d.data.totalMarketPrices;
+                document.getElementById('statCrops').textContent = d.data.totalCrops || 0;
+                document.getElementById('statSchemes').textContent = d.data.totalSchemes || 0;
+                document.getElementById('statSubs').textContent = d.data.totalSubscribers;
+            }
+        } catch(e) { console.error(e); }
+        loadRecentQueries();
+    }
+
+    async function loadRecentQueries() {
+        try {
+            const r = await fetch('/api/admin/queries?status=pending');
+            const d = await r.json();
+            const box = document.getElementById('recentQueries');
+            if (d.data.length === 0) { box.innerHTML = '<p class="text-muted small">No pending queries!</p>'; return; }
+            box.innerHTML = d.data.slice(0, 3).map(q => `
+                <div class="query-card">
+                    <div class="q-header"><div><span class="q-name">${q.name}</span><br><span class="q-email">${q.email}</span></div><span class="badge badge-pending rounded-pill px-3 py-1">Pending</span></div>
+                    <div class="q-message">${q.message}</div>
+                    <div class="q-date"><i class="far fa-clock me-1"></i>${new Date(q.createdAt).toLocaleString()}</div>
+                </div>`).join('');
+        } catch(e) { document.getElementById('recentQueries').innerHTML = '<p class="text-danger small">Failed to load.</p>'; }
+    }
+
+    // ─── Load Queries ──────────────────────────────────────
+    let currentFilter = 'all';
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => { b.classList.remove('active','btn-success'); b.classList.add('btn-outline-secondary'); });
+            btn.classList.add('active','btn-success'); btn.classList.remove('btn-outline-secondary');
+            currentFilter = btn.dataset.filter;
+            loadQueries();
+        });
+    });
+
+    async function loadQueries() {
+        try {
+            const r = await fetch('/api/admin/queries?status=' + currentFilter);
+            const d = await r.json();
+            const box = document.getElementById('queriesList');
+            if (d.data.length === 0) { box.innerHTML = '<div class="text-center py-5"><i class="fas fa-inbox fa-3x text-muted mb-3"></i><p class="text-muted">No queries found.</p></div>'; return; }
+            box.innerHTML = d.data.map(q => {
+                let convoHtml = '';
+                if (q.conversation && q.conversation.length > 0) {
+                    convoHtml = '<div class="convo-box">' + q.conversation.map(m => `<div class="convo-msg ${m.sender==='admin'?'convo-admin':'convo-user'}">${m.text}<div class="convo-time">${m.sender==='admin'?'🟢 Admin':'🔵 User'} · ${new Date(m.sentAt).toLocaleString()}</div></div>`).join('') + '</div>';
+                }
+                return `<div class="query-card" id="qcard-${q._id}">
+                    <div class="q-header"><div><span class="q-name">${q.name}</span> ${q.phone?'<span class="text-muted small ms-2"><i class="fas fa-phone me-1"></i>'+q.phone+'</span>':''}<br><span class="q-email"><i class="fas fa-envelope me-1"></i>${q.email}</span></div><span class="badge ${q.status==='pending'?'badge-pending':'badge-replied'} rounded-pill px-3 py-1">${q.status}</span></div>
+                    ${q.subject?'<p class="fw-bold small mb-1">'+q.subject+'</p>':''}
+                    <div class="q-message">${q.message}</div>
+                    ${convoHtml}
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <div class="q-date"><i class="far fa-clock me-1"></i>${new Date(q.createdAt).toLocaleString()}</div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-sm btn-success rounded-pill px-3" onclick="toggleReply('${q._id}')"><i class="fas fa-reply me-1"></i>Reply</button>
+                            <button class="btn btn-sm btn-outline-danger rounded-pill px-3" onclick="deleteQuery('${q._id}')"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <div class="reply-box" id="reply-${q._id}"><textarea class="form-control mt-2" id="replyText-${q._id}" rows="2" placeholder="Type your expert reply..."></textarea><button class="btn btn-success btn-sm rounded-pill px-4 mt-2" onclick="sendReply('${q._id}')"><i class="fas fa-paper-plane me-1"></i>Send Reply</button></div>
+                </div>`; }).join('');
+        } catch(e) { document.getElementById('queriesList').innerHTML = '<p class="text-danger">Failed to load queries.</p>'; }
+    }
+
+    function toggleReply(id) { document.getElementById('reply-' + id).classList.toggle('show'); }
+
+    async function sendReply(id) {
+        const reply = document.getElementById('replyText-' + id).value.trim();
+        if (!reply) { alert('Please type a reply.'); return; }
+        try {
+            const r = await fetch('/api/admin/queries/' + id + '/reply', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ reply })
+            });
+            const d = await r.json();
+            if (d.success) { alert('Reply sent & user notified!'); loadQueries(); loadStats(); }
+            else alert(d.message);
+        } catch(e) { alert('Failed to send reply.'); }
+    }
+
+    async function deleteQuery(id) {
+        if (!confirm('Delete this query?')) return;
+        try {
+            await fetch('/api/admin/queries/' + id, { method: 'DELETE' });
+            loadQueries(); loadStats();
+        } catch(e) { alert('Failed to delete.'); }
+    }
+
+    // ─── Load Market ───────────────────────────────────────
+    async function loadMarket() {
+        try {
+            const r = await fetch('/api/admin/market');
+            const d = await r.json();
+            document.getElementById('marketCount').textContent = d.count + ' entries';
+            const tbody = document.getElementById('marketTableBody');
+            if (d.data.length === 0) { tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-4">No market prices yet.</td></tr>'; return; }
+            tbody.innerHTML = d.data.map(m => {
+                const trendIcon = m.trend === 'up' ? '<i class="fas fa-caret-up text-success"></i>' : m.trend === 'down' ? '<i class="fas fa-caret-down text-danger"></i>' : '<i class="fas fa-minus text-secondary"></i>';
+                const trendBadge = m.trend === 'up' ? 'bg-success' : m.trend === 'down' ? 'bg-danger' : 'bg-secondary';
+                const ago = timeAgo(m.lastUpdated || m.updatedAt);
+                return `<tr>
+                    <td class="fw-bold">${m.crop}</td><td>${m.market}</td><td>${m.state}</td>
+                    <td class="fw-bold">₹${m.price.toLocaleString()}</td>
+                    <td><span class="badge ${trendBadge} rounded-pill">${trendIcon} ${m.trendPercent}%</span></td>
+                    <td class="small text-muted">${ago}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary rounded-pill me-1" onclick='openEdit(${JSON.stringify(m)})'><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-outline-danger rounded-pill" onclick="deleteMarket('${m._id}')"><i class="fas fa-trash"></i></button>
+                    </td></tr>`;
+            }).join('');
+        } catch(e) { document.getElementById('marketTableBody').innerHTML = '<tr><td colspan="7" class="text-danger">Failed to load.</td></tr>'; }
+    }
+
+    function timeAgo(date) {
+        const s = Math.floor((Date.now() - new Date(date)) / 1000);
+        if (s < 60) return s + 's ago'; if (s < 3600) return Math.floor(s/60) + 'm ago';
+        if (s < 86400) return Math.floor(s/3600) + 'h ago'; return Math.floor(s/86400) + 'd ago';
+    }
+
+    // Add market
+    document.getElementById('saveMarketBtn').addEventListener('click', async () => {
+        const data = { crop: document.getElementById('mCrop').value, market: document.getElementById('mMarket').value, state: document.getElementById('mState').value, price: document.getElementById('mPrice').value, trend: document.getElementById('mTrend').value, trendPercent: document.getElementById('mTrendPct').value };
+        if (!data.crop || !data.market || !data.state || !data.price) { alert('Fill all required fields.'); return; }
+        try {
+            const r = await fetch('/api/admin/market', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+            const d = await r.json();
+            if (d.success) { alert(d.message); bootstrap.Modal.getInstance(document.getElementById('addMarketModal')).hide(); document.getElementById('addMarketForm').reset(); loadMarket(); loadStats(); }
+            else alert(d.message);
+        } catch(e) { alert('Failed to add.'); }
+    });
+
+    // Edit market
+    function openEdit(m) {
+        document.getElementById('editId').value = m._id;
+        document.getElementById('editCrop').value = m.crop;
+        document.getElementById('editPrice').value = m.price;
+        document.getElementById('editTrend').value = m.trend;
+        document.getElementById('editTrendPct').value = m.trendPercent;
+        new bootstrap.Modal(document.getElementById('editMarketModal')).show();
+    }
+
+    document.getElementById('updateMarketBtn').addEventListener('click', async () => {
+        const id = document.getElementById('editId').value;
+        const data = { price: document.getElementById('editPrice').value, trend: document.getElementById('editTrend').value, trendPercent: document.getElementById('editTrendPct').value };
+        try {
+            const r = await fetch('/api/admin/market/' + id, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+            const d = await r.json();
+            if (d.success) { alert(d.message); bootstrap.Modal.getInstance(document.getElementById('editMarketModal')).hide(); loadMarket(); }
+            else alert(d.message);
+        } catch(e) { alert('Failed to update.'); }
+    });
+
+    async function deleteMarket(id) {
+        if (!confirm('Delete this market entry?')) return;
+        try {
+            await fetch('/api/admin/market/' + id, { method: 'DELETE' });
+            loadMarket(); loadStats();
+        } catch(e) { alert('Failed to delete.'); }
+    }
+
+    // ─── Load Crops ────────────────────────────────────────
+    async function loadCrops() {
+        try {
+            const r = await fetch('/api/admin/crops'); const d = await r.json();
+            document.getElementById('cropsCount').textContent = d.count + ' crops';
+            const tb = document.getElementById('cropsTableBody');
+            if (d.data.length === 0) { tb.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">No crops.</td></tr>'; return; }
+            tb.innerHTML = d.data.map(c => `<tr><td class="fw-bold">${c.name}</td><td><span class="badge bg-success">${c.category}</span></td><td>${c.season||'-'}</td><td>${c.soil||'-'}</td><td>${c.waterRequirement||'-'}</td><td><button class="btn btn-sm btn-outline-danger rounded-pill" onclick="deleteCrop('${c._id}')"><i class="fas fa-trash"></i></button></td></tr>`).join('');
+        } catch(e) { document.getElementById('cropsTableBody').innerHTML = '<tr><td colspan="6" class="text-danger">Failed.</td></tr>'; }
+    }
+    document.getElementById('saveCropBtn').addEventListener('click', async () => {
+        const data = { name:document.getElementById('cName').value, category:document.getElementById('cCat').value, season:document.getElementById('cSeason').value, soil:document.getElementById('cSoil').value, fertilizer:document.getElementById('cFert').value, yield:document.getElementById('cYield').value, waterRequirement:document.getElementById('cWater').value, growthDuration:document.getElementById('cDuration').value, advice:document.getElementById('cAdvice').value };
+        if (!data.name) { alert('Name required.'); return; }
+        try { const r = await fetch('/api/admin/crops',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}); const d = await r.json(); if(d.success){alert(d.message);bootstrap.Modal.getInstance(document.getElementById('addCropModal')).hide();document.getElementById('addCropForm').reset();loadCrops();loadStats();}else alert(d.message); } catch(e){alert('Failed.');}
+    });
+    async function deleteCrop(id) { if(!confirm('Delete?'))return; try{await fetch('/api/admin/crops/'+id,{method:'DELETE'});loadCrops();loadStats();}catch(e){alert('Failed.');} }
+
+    // ─── Load Schemes ──────────────────────────────────────
+    async function loadSchemes() {
+        try {
+            const r = await fetch('/api/admin/schemes'); const d = await r.json();
+            document.getElementById('schemesCount').textContent = d.count + ' schemes';
+            const tb = document.getElementById('schemesTableBody');
+            if (d.data.length === 0) { tb.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">No schemes.</td></tr>'; return; }
+            tb.innerHTML = d.data.map(s => `<tr><td class="fw-bold">${s.title}</td><td><span class="badge bg-info">${s.category}</span></td><td class="small">${(s.description||'').substring(0,60)}...</td><td class="small">${(s.eligibility||'').substring(0,40)}...</td><td><button class="btn btn-sm btn-outline-danger rounded-pill" onclick="deleteScheme('${s._id}')"><i class="fas fa-trash"></i></button></td></tr>`).join('');
+        } catch(e) { document.getElementById('schemesTableBody').innerHTML = '<tr><td colspan="5" class="text-danger">Failed.</td></tr>'; }
+    }
+    document.getElementById('saveSchemeBtn').addEventListener('click', async () => {
+        const data = { title:document.getElementById('sTitle').value, category:document.getElementById('sCat').value, description:document.getElementById('sDesc').value, eligibility:document.getElementById('sElig').value, benefits:(document.getElementById('sBenefits').value||'').split(',').map(b=>b.trim()).filter(Boolean), applicationLink:document.getElementById('sLink').value };
+        if (!data.title) { alert('Title required.'); return; }
+        try { const r = await fetch('/api/admin/schemes',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}); const d = await r.json(); if(d.success){alert(d.message);bootstrap.Modal.getInstance(document.getElementById('addSchemeModal')).hide();document.getElementById('addSchemeForm').reset();loadSchemes();loadStats();}else alert(d.message); } catch(e){alert('Failed.');}
+    });
+    async function deleteScheme(id) { if(!confirm('Delete?'))return; try{await fetch('/api/admin/schemes/'+id,{method:'DELETE'});loadSchemes();loadStats();}catch(e){alert('Failed.');} }
+
+    // ─── Admin Notification Check ──────────────────────────
+    async function loadAdminNotifs() {
+        try { const r = await fetch('/api/admin/notifications'); const d = await r.json(); if(d.unreadCount>0) document.getElementById('adminDot').classList.remove('d-none'); else document.getElementById('adminDot').classList.add('d-none'); alert('Notifications: '+d.unreadCount+' unread\n'+(d.data||[]).slice(0,5).map(n=>n.title+': '+n.message).join('\n')); } catch(e){}
+    }
+    async function checkAdminNotifs() { try { const r = await fetch('/api/admin/notifications'); const d = await r.json(); if(d.unreadCount>0) document.getElementById('adminDot').classList.remove('d-none'); else document.getElementById('adminDot').classList.add('d-none'); } catch(e){} }
+    setInterval(checkAdminNotifs, 15000);
+
+    // ─── Init ──────────────────────────────────────────────
+    loadStats(); checkAdminNotifs();
+    </script>
+</body>
+</html>

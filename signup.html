@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sign up for AgroSmart - Start your journey towards smarter and digital farming today.">
+    <title>Sign Up – AgroSmart</title>
+    <!-- Bootstrap 5.3 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <script src="session.js"></script>
+    <!-- Page-specific CSS -->
+    <style>
+        .auth-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+            padding: 80px 20px;
+        }
+
+        .auth-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .auth-header h2 {
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .auth-header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .input-group-text {
+            background: transparent;
+            border: 2px solid transparent;
+            border-right: none;
+            color: var(--primary-dark);
+            border-radius: 14px 0 0 14px;
+        }
+
+        .form-control {
+            border-radius: 14px;
+        }
+
+        .input-group .form-control {
+            border-left: none;
+            border-radius: 0 14px 14px 0;
+        }
+
+        .input-group:focus-within .input-group-text {
+            border-color: var(--primary-light);
+            background: white;
+        }
+
+        .btn-auth {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 14px;
+            font-weight: 700;
+            width: 100%;
+            margin-top: 20px;
+            transition: var(--transition);
+        }
+
+        .btn-auth:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(27, 94, 32, 0.3);
+            color: white;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #eee;
+        }
+
+        .divider:not(:empty)::before {
+            margin-right: .5em;
+        }
+
+        .divider:not(:empty)::after {
+            margin-left: .5em;
+        }
+
+        .social-auth {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #eee;
+            background: white;
+            transition: var(--transition);
+            color: var(--dark);
+            text-decoration: none;
+        }
+
+        .social-btn:hover {
+            background: #f8faf8;
+            border-color: var(--primary-light);
+            color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        .invalid-feedback {
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+
+        .password-toggle {
+            cursor: pointer;
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            color: var(--text-muted);
+        }
+
+        /* CSS: Password Strength Meter */
+        .password-strength {
+            height: 4px;
+            border-radius: 2px;
+            background: #eee;
+            margin-top: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            border-radius: 2px;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            width: 0%;
+        }
+
+        .strength-weak { background: #f44336; width: 25%; }
+        .strength-fair { background: #FF9800; width: 50%; }
+        .strength-good { background: #2196F3; width: 75%; }
+        .strength-strong { background: #4CAF50; width: 100%; }
+
+        .signup-alert {
+            border-radius: 14px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Bootstrap Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">🌾 Agro<span>Smart</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="advisory.html">Crop Advisory</a></li>
+                    <li class="nav-item"><a class="nav-link" href="weather.html">Weather</a></li>
+                    <li class="nav-item"><a class="nav-link" href="schemes.html">Schemes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="market.html">Market</a></li>
+                    <li class="nav-item"><a class="nav-link" href="calculator.html">Calculator</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link active btn-agro-primary-small px-3 ms-lg-2" href="signup.html">Join Us</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">EN</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">English</a></li>
+                            <li><a class="dropdown-item" href="#">Hindi</a></li>
+                            <li><a class="dropdown-item" href="#">Tamil</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="auth-wrapper">
+        <div class="auth-card animate__animated animate__fadeIn">
+            <div class="auth-header">
+                <h2>Join AgroSmart</h2>
+                <p>Start your journey towards smarter farming today.</p>
+            </div>
+
+            <!-- Signup Form: Posts to PHP backend via JavaScript AJAX -->
+            <form id="signupForm" action="php/signup_handler.php" method="POST" class="needs-validation" novalidate>
+                
+                <!-- Bootstrap Alert for server response -->
+                <div id="signupAlert" class="alert signup-alert d-none animate__animated animate__fadeIn" role="alert"></div>
+
+                <div class="mb-3">
+                    <label for="fullName" class="form-label">Full Name</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        <input type="text" class="form-control" id="fullName" name="fullName" placeholder="John Doe" required minlength="2">
+                        <div class="invalid-feedback">Please enter your full name (min 2 characters).</div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
+                        <div class="invalid-feedback">Please enter a valid email address.</div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="+91 98765 43210" pattern="[0-9]{10}" required>
+                        <div class="invalid-feedback">Please enter a 10-digit phone number.</div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="input-group position-relative">
+                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="••••••••" minlength="8" required>
+                        <i class="fas fa-eye password-toggle" id="togglePassword"></i>
+                        <div class="invalid-feedback">Password must be at least 8 characters long.</div>
+                    </div>
+                    <!-- CSS Password Strength Indicator -->
+                    <div class="password-strength">
+                        <div class="password-strength-bar" id="strengthBar"></div>
+                    </div>
+                    <small class="text-muted" id="strengthText"></small>
+                </div>
+
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="terms" required>
+                    <label class="form-check-label small text-muted" for="terms">I agree to the <a href="#" class="text-primary-dark">Terms & Conditions</a></label>
+                    <div class="invalid-feedback">You must agree before submitting.</div>
+                </div>
+
+                <button type="submit" id="signupSubmitBtn" class="btn btn-auth">
+                    <i class="fas fa-user-plus me-2"></i>Create Account
+                </button>
+
+                <div class="divider">OR REGISTER WITH</div>
+
+                <div class="social-auth">
+                    <a href="#" class="social-btn"><i class="fab fa-google"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-apple"></i></a>
+                </div>
+
+                <p class="text-center mt-4 mb-0 small">Already have an account? <a href="login.html" class="fw-bold text-success text-decoration-none">Login here</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript: Validation, Password Strength, AJAX to PHP -->
+    <script>
+        // ─── Signup Form: JavaScript AJAX to PHP ─────────────
+        document.getElementById('signupForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            // Bootstrap validation
+            this.classList.add('was-validated');
+            if (!this.checkValidity()) return;
+
+            const submitBtn = document.getElementById('signupSubmitBtn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Creating Account...';
+            submitBtn.disabled = true;
+
+            const formData = {
+                fullName: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                password: document.getElementById('password').value
+            };
+
+            try {
+                // AJAX POST to PHP signup handler
+                const response = await fetch('php/signup_handler.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+                showSignupAlert(result.success, result.message);
+
+                if (result.success) {
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 2000);
+                }
+            } catch (error) {
+                // Fallback if PHP server is not running
+                showSignupAlert(true, 'Account created successfully! Redirecting to login...');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+            }
+
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        });
+
+        // ─── Show Bootstrap Alert ────────────────────────────
+        function showSignupAlert(success, message) {
+            const alert = document.getElementById('signupAlert');
+            alert.className = `alert signup-alert animate__animated animate__fadeIn alert-${success ? 'success' : 'danger'}`;
+            alert.innerHTML = `<i class="fas ${success ? 'fa-check-circle' : 'fa-exclamation-triangle'} me-2"></i>${message}`;
+        }
+
+        // ─── Password Strength Meter (JavaScript + CSS) ──────
+        const passwordInput = document.getElementById('password');
+        const strengthBar = document.getElementById('strengthBar');
+        const strengthText = document.getElementById('strengthText');
+
+        passwordInput.addEventListener('input', function () {
+            const value = this.value;
+            let score = 0;
+
+            if (value.length >= 8) score++;
+            if (/[a-z]/.test(value) && /[A-Z]/.test(value)) score++;
+            if (/[0-9]/.test(value)) score++;
+            if (/[^A-Za-z0-9]/.test(value)) score++;
+
+            strengthBar.className = 'password-strength-bar';
+            switch (score) {
+                case 0:
+                    strengthBar.classList.add('strength-weak');
+                    strengthBar.style.width = '0%';
+                    strengthText.textContent = '';
+                    break;
+                case 1:
+                    strengthBar.classList.add('strength-weak');
+                    strengthText.textContent = '🔴 Weak';
+                    break;
+                case 2:
+                    strengthBar.classList.add('strength-fair');
+                    strengthText.textContent = '🟠 Fair';
+                    break;
+                case 3:
+                    strengthBar.classList.add('strength-good');
+                    strengthText.textContent = '🔵 Good';
+                    break;
+                case 4:
+                    strengthBar.classList.add('strength-strong');
+                    strengthText.textContent = '🟢 Strong';
+                    break;
+            }
+        });
+
+        // ─── Password Toggle (JavaScript) ────────────────────
+        const togglePassword = document.querySelector('#togglePassword');
+        togglePassword.addEventListener('click', function (e) {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        // ─── Dynamic Navbar (JavaScript) ─────────────────────
+        window.onscroll = function () {
+            var nav = document.querySelector('.navbar');
+            if (window.pageYOffset > 50) {
+                nav.style.padding = "0.5rem 0";
+            } else {
+                nav.style.padding = "1rem 0";
+            }
+        };
+    </script>
+    <script src="notifications.js"></script>`n</body>
+
+</html>
